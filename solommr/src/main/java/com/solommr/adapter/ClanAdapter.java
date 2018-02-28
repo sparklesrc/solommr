@@ -13,6 +13,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.ClanDataResponse;
 
 @Component
@@ -47,10 +48,18 @@ public class ClanAdapter {
         HttpEntity<?> request = new HttpEntity(req_payload, headers);
 
         ResponseEntity<?> response = new RestTemplate().postForEntity(uri, request, String.class);
-        ClanDataResponse entityResponse = (ClanDataResponse) response.getBody();
+
+        ObjectMapper mapper = new ObjectMapper();
+        ClanDataResponse obj = null;
+        try {
+        	obj = mapper.readValue(response.getBody().toString(), ClanDataResponse.class);	
+		} catch (Exception e) {
+			System.out.println("ERROR EN MAPPING " + obj.getClanName());
+		}
         
-        System.out.println("PRINT VALUES " + entityResponse.getClanName());
         
-        return entityResponse;
+        System.out.println("PRINT VALUES " + obj.getClanName());
+        
+        return obj;
 	}
 }
