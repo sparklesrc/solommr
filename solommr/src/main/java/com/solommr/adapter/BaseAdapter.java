@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public class BaseAdapter {
 
-	@Value("${projectrc.url.base}")
+//	@Value("${projectrc.url.base}")
 	private String urlBase;
 
 	protected ResponseEntity<?> doPostCall() {

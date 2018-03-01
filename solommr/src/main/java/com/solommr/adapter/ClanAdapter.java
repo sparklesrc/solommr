@@ -23,7 +23,7 @@ public class ClanAdapter {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Value("${projectrc.url.team.search}")
+//	@Value("${projectrc.url.team.search}")
 	private String teamSearch;
 
 	public ClanDataResponse getClanData() {
