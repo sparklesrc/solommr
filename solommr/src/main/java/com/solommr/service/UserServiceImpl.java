@@ -12,6 +12,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserInfo getUserByMail(String mail) {
+		System.out.println("En Service");
 		return userAdapter.getUserInfoByMail(mail);
 	}
 
