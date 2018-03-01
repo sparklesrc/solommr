@@ -11,7 +11,7 @@
 			<footer>
 				<!-- this is footer -->
 				© 2018 solommr.com <span sec:authorize="isAuthenticated()"> |
-					Logged user: <span sec:authentication="name"></span> | Roles: <span
+					Usuario: <span sec:authentication="name"></span> | Tipo: <span
 					sec:authentication="principal.authorities"></span> | <a
 					th:href="@{/logout}">Sign Out</a>
 				</span>
