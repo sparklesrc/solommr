@@ -19,11 +19,10 @@
 						<h1>Iniciar Sesión:</h1>
 
 						<div th:if="${param.error}">
-							<div class="alert alert-danger">Invalid username and
-								password.</div>
+							<div class="alert alert-danger">Usuario y contraseña inválida.</div>
 						</div>
 						<div th:if="${param.logout}">
-							<div class="alert alert-info">You have been logged out.</div>
+							<div class="alert alert-info">Te haz desconectado.</div>
 						</div>
 
 						<div class="form-group">
