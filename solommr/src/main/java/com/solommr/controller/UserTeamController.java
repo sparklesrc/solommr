@@ -19,8 +19,9 @@ public class UserTeamController {
 	@GetMapping("/team")
 	public String index(Model model) {
 		System.out.println("EN CONTROLLER");
-//		ClanDataResponse clanData = clanService.getClanData();
-//		model.addAttribute("clanData", clanData);
+		ClanDataResponse clanData = clanService.getClanData();
+		model.addAttribute("teamName", clanData.getClanName());
+		model.addAttribute("members", clanData.getMembers());
 		return "/user/team";
 	}
 }

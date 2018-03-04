@@ -15,6 +15,8 @@
 			<h1 th:inline="text">Hola
 				[[${#httpServletRequest.remoteUser}]]!</h1>
 
+			<p>Total Kills: <span th:text="${total_kills}">Total kill</span></p>
+
 			<div th:if="${isNotSincronized}">
 				<a th:href="@{/user/profile/sync}">Sincronizar</a>
 			</div>
@@ -28,6 +30,6 @@
 	</div>
 	<!-- /.container -->
 	<div th:replace="/fragments/footer :: footer" />
-	<script type="text/javascript" src="../../js/user/profile.js"></script>
+	<script type="text/javascript" src="/js/user/profile.js"></script>
 </body>
 </html>

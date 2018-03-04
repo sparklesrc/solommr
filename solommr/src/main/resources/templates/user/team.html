@@ -2,8 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <div th:replace="/fragments/header :: header-css" />
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -12,7 +10,32 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1>Página de Equipos ! </h1>
+			<h1>P&aacute;gina de Equipos ! </h1>
+
+
+			<p>Team Name: <span th:text="${teamName}">Nombre de Team</span></p>
+
+			<p>Los miembros actuales son:</p>
+
+			<table border="1">
+					<tr>
+						<td colspan="3">Id de Usuario</td>
+						<td colspan="4">Nombre de Usuario</td>
+						<td colspan="4">Tipo de Miembro</td>
+					</tr>
+				<th:block th:each="member : ${members}">
+					<tr>
+						<td colspan="3" th:text="${member.userId}">...</td>
+						<td colspan="4" th:text="${member.name}">...</td>
+						<td colspan="4" th:text="${member.type}">...</td>
+					</tr>
+				</th:block>
+			</table>
+
+			<br></br>
+
+			<button id="buildTeam" type="button" class="btn btn-info">Crear Team</button>
+			<button id="searchTeam" type="button" class="btn btn-warning">Buscar Team</button>
 
 			<form th:action="@{/logout}" method="post">
 				<input type="submit" value="Sign Out" />
@@ -23,6 +46,6 @@
 	</div>
 	<!-- /.container -->
 	<div th:replace="/fragments/footer :: footer" />
-
+	<script type="text/javascript" src="/js/user/team.js"></script>
 </body>
 </html>

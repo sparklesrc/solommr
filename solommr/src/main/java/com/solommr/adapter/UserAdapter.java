@@ -1,21 +1,15 @@
 package com.solommr.adapter;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.solommr.model.ClanDataResponse;
+import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.UserInfo;
 
 @Component
@@ -29,6 +23,9 @@ public class UserAdapter extends BaseAdapter {
 
 	@Value("${steam.url.csgo.profile}")
 	private String steamCSGOProfile;
+
+	@Value("${steam.key}")
+	private String steamKey;
 
 	public UserInfo getUserInfoByMail(String mail) {
 		Map req_payload = new HashMap();
@@ -49,19 +46,18 @@ public class UserAdapter extends BaseAdapter {
 		}
 	}
 
-	public String getSteamProfile() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Accept", "application/json");
-		
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("appid", "730");
-		params.put("key", "");
-		params.put("steamid", "76561198069746006");
+	public SteamCSGOProfile getSteamProfile() {
+		URI targetUrl = UriComponentsBuilder.fromUriString(steamCSGOProfile).queryParam("appid", "730")
+				.queryParam("key", steamKey).queryParam("steamid", "76561198069746006").build().encode().toUri();
 
-		HttpEntity entity = new HttpEntity(headers);
+		String result = restTemplate.getForObject(targetUrl, String.class);
 
-		HttpEntity<String> response = restTemplate.exchange(steamCSGOProfile, HttpMethod.GET, entity, String.class, params);
-		
-		return response.getBody();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(result, SteamCSGOProfile.class);
+		} catch (Exception e) {
+			System.out.println("Error en Mapping obtener CSGO Steam Profile ");
+			return null;
+		}
 	}
 }
