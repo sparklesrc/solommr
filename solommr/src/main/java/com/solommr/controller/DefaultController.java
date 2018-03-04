@@ -1,7 +1,11 @@
 package com.solommr.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.solommr.model.UserInfo;
 
 @Controller
 public class DefaultController {
@@ -12,7 +16,11 @@ public class DefaultController {
 	}
 
 	@GetMapping("/home")
-	public String home() {
+	public String home(HttpServletRequest request) {
+		UserInfo usuario = (UserInfo) request.getSession().getAttribute("SESSION_USUARIO");
+		if (usuario != null) {
+			return "redirect:/user";
+		}
 		return "/home";
 	}
 

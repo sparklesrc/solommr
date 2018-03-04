@@ -10,13 +10,8 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class SpringBootWebApplication extends SpringBootServletInitializer {
 
-	// public static void main(String[] args) throws Exception {
-	// SpringApplication.run(SpringBootWebApplication.class, args);
-	// }
-
 	@Override
-	protected SpringApplicationBuilder configure(
-			SpringApplicationBuilder application) {
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringBootWebApplication.class);
 	}
 
