@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="/fragments/header :: header-css" />
+</head>
+<body>
+
+	<div th:replace="/fragments/header_user :: header" />
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h1>Sincroniza tu cuenta con Steam</h1>
+
+			<h1 th:inline="text">Hola
+				[[${#httpServletRequest.remoteUser}]]!</h1>
+
+			<div th:if="${isNotSincronized}">
+				<a th:href="@{/user/profile/sync}">Sincronizar</a>
+			</div>
+
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" />
+			</form>
+
+		</div>
+
+	</div>
+	<!-- /.container -->
+	<div th:replace="/fragments/footer :: footer" />
+	<script type="text/javascript" src="../../js/user/profile.js"></script>
+</body>
+</html>

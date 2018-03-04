@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -25,6 +27,9 @@ public class UserAdapter extends BaseAdapter {
 	@Value("${projectrc.url.user.findByMail}")
 	private String findByMail;
 
+	@Value("${steam.url.csgo.profile}")
+	private String steamCSGOProfile;
+
 	public UserInfo getUserInfoByMail(String mail) {
 		Map req_payload = new HashMap();
 		req_payload.put("mail", mail);
@@ -42,5 +47,21 @@ public class UserAdapter extends BaseAdapter {
 			System.out.println("Error en Mapping de Usuario " + mail);
 			return null;
 		}
+	}
+
+	public String getSteamProfile() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", "application/json");
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("appid", "730");
+		params.put("key", "");
+		params.put("steamid", "76561198069746006");
+
+		HttpEntity entity = new HttpEntity(headers);
+
+		HttpEntity<String> response = restTemplate.exchange(steamCSGOProfile, HttpMethod.GET, entity, String.class, params);
+		
+		return response.getBody();
 	}
 }
