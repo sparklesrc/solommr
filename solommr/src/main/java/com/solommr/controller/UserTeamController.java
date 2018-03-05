@@ -28,4 +28,15 @@ public class UserTeamController {
 		ClanDataResponse response = clanService.searchTeam(request);
 		return response;
 	}
+
+	@RequestMapping(value = "/buildTeam", method = RequestMethod.POST)
+	public @ResponseBody ClanDataResponse buildTeamPost() {
+		return null;
+	}
+
+	@RequestMapping(value = "/buildTeam", method = RequestMethod.GET)
+	public String buildTeamGet(Model model) {
+		model.addAttribute("teams", null);
+		return "user/buildTeam :: buildTeam";
+	}
 }
