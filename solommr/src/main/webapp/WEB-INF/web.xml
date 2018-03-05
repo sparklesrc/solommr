@@ -1,3 +1,6 @@
 <web-app>
 	<display-name>Solo MMR</display-name>
+	<welcome-file-list>
+		<welcome-file>home.html</welcome-file>
+	</welcome-file-list>
 </web-app>
