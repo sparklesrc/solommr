@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <div th:replace="/fragments/header :: header-css" />
+
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
 <body>
 
@@ -12,33 +16,62 @@
 		<div class="starter-template">
 			<h1>P&aacute;gina de Equipos ! </h1>
 
-
-			<p>Team Name: <span th:text="${teamName}">Nombre de Team</span></p>
-
-			<p>Los miembros actuales son:</p>
-
-			<table border="1">
-					<tr>
-						<td colspan="3">Id de Usuario</td>
-						<td colspan="4">Nombre de Usuario</td>
-						<td colspan="4">Tipo de Miembro</td>
-					</tr>
-				<th:block th:each="member : ${members}">
-					<tr>
-						<td colspan="3" th:text="${member.userId}">...</td>
-						<td colspan="4" th:text="${member.name}">...</td>
-						<td colspan="4" th:text="${member.type}">...</td>
-					</tr>
-				</th:block>
-			</table>
+			<div class="container" style="width:auto;">
+				<div style="background-color: lightblue;">
+						<p align="center"> Juego
+							<select id="criteria">
+								<option value="0">Seleccionar</option>
+								<option value="1">CSGO</option>
+								<option value="2">DOTA</option>
+							</select>
+						</p>
+				</div>
+				<div class="btn-group btn-group-justified">
+					<a id="btnMyTeams" href="#" class="btn btn-primary">Mis Equipos</a> 
+					<a id="btnBuildTeam" href="#" class="btn btn-primary">Crear Equipo</a> 
+					<a id="btnSearchTeam" href="#" class="btn btn-primary">Buscar Equipo</a>
+				</div>
+			</div>
 
 			<br></br>
 
-			<button id="buildTeam" type="button" class="btn btn-info">Crear Team</button>
-			<button id="searchTeam" type="button" class="btn btn-warning">Buscar Team</button>
+			<div id="searchTeamBox" class="container" style="width: auto;" align="center">
+				<div class="form-group row">
+					<div class="col-xs-6">
+						<input class="form-control input-sm" id="teamName" type="text" placeholder="Nombre/Id de Equipo" />
+					</div>
+					<div class="col-xs-2">
+						<input id="btnDoSearch" type="submit" value="Buscar" />
+					</div>
+				</div>
+			</div>
+
+			<div id="searchTeamResult" class="container" style="width: auto;" align="center">
+				<th:block th:each="team : ${teams}">
+				    <tr>
+				        <td th:text="${team.clanName}">Team Name</td>
+				        <td th:text="${team.gameName}">Leader</td>
+				        <td th:text="${team.gameName}">Team Rank</td>
+				        <td th:text="">ver</td>
+				    </tr>
+				</th:block>
+			</div>
+			
+			<table id="display">
+			</table>
+			
+
+
+			<div id="csgoBox">
+				EQUIPOS DE CSGO
+				<div th:include="/user/teamCSGO :: teamCSGO"></div>
+			</div>
+			<div id="dotaBox">
+				EQUIPOS DE DOTA
+			</div>
 
 			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" />
+				<div align="right"><input type="submit" value="Sign Out" /></div>
 			</form>
 
 		</div>
@@ -46,7 +79,7 @@
 	</div>
 	<!-- /.container -->
 	<div th:replace="/fragments/footer :: footer" />
-<!-- 	<script type="text/javascript" src="/js/user/team.js"></script> -->
-	<script type="text/javascript" src="/solommr/js/user/team.js"></script>
+	<script type="text/javascript" src="/js/user/team.js"></script>
+<!-- 	<script type="text/javascript" src="/solommr/js/user/team.js"></script> -->
 </body>
 </html>

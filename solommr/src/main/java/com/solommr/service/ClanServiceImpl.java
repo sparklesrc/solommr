@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.solommr.adapter.ClanAdapter;
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.TeamSearchReq;
 
 @Service
 public class ClanServiceImpl implements ClanService {
@@ -13,9 +14,8 @@ public class ClanServiceImpl implements ClanService {
 	private ClanAdapter clanAdapter;
 
 	@Override
-	public ClanDataResponse getClanData() {
-		System.out.println("EN SERVICE");
-		return clanAdapter.getClanData();
+	public ClanDataResponse searchTeam(TeamSearchReq request) {
+		return clanAdapter.getClanData(new Long(request.getGameId()), request.getCriteria());
 	}
 
 }

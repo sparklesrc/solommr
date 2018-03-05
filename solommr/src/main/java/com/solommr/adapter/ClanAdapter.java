@@ -26,17 +26,8 @@ public class ClanAdapter {
 //	@Value("${projectrc.url.team.search}")
 	private String teamSearch;
 
-	public ClanDataResponse getClanData() {
-
-		System.out.println("EN ADAPTER");
-
-		Long gameId = 1L;
-		String criteria = "aIR";
+	public ClanDataResponse getClanData(Long gameId, String criteria) {
 		String uri = "http://projectrc-pj-solo-mmr.7e14.starter-us-west-2.openshiftapps.com/projectrc/rest/team/search";
-
-		// Map vars = new HashMap<String, String>();
-		// vars.put("gameId", gameId);
-		// vars.put("criteria", criteria);
 
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		Map map = new HashMap<String, String>();

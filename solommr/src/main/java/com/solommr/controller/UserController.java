@@ -25,8 +25,6 @@ public class UserController {
 		if (usuario == null) {
 			return "redirect:/login";
 		}
-		ClanDataResponse clanData = clanService.getClanData();
-		model.addAttribute("clanData", clanData);
 		return "/user/user";
 	}
 
@@ -36,8 +34,6 @@ public class UserController {
 		if (usuario == null) {
 			return "redirect:/login";
 		}
-		ClanDataResponse clanData = clanService.getClanData();
-		model.addAttribute("clanData", clanData);
 		return "/user/user";
 	}
 }
