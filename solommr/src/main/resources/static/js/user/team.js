@@ -42,6 +42,7 @@ $("#btnSearchTeam").click(function() {
 	}
 	$("#searchTeamBox").show();
 	$("#teamName").val('');
+	$('#idTeamSearchResult').hide();
 });
 
 // BUSCAR EQUIPO
@@ -66,7 +67,13 @@ $("#btnDoSearch").click(function() {
 		  		},
 		  dataType: 'json',
 		  success: function (data){
-			  
+			  alert(data);
+			  $('#table').data(data);
+//			    $('#table').bootstrapTable({
+//			        data: data
+//			    });
+//			  $('#teamSearchResult').html(data);
+//			  $('#idTeamSearchResult').show();
 		  },
 		  error: function (e){
 		  }

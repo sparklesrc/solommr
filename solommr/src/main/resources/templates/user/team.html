@@ -4,8 +4,8 @@
 <div th:replace="/fragments/header :: header-css" />
 
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/> -->
-<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -45,18 +45,9 @@
 					</div>
 				</div>
 			</div>
-
-			<div id="searchTeamResult" class="container" style="width: auto;" align="center">
-				<th:block th:each="team : ${teams}">
-				    <tr>
-				        <td th:text="${team.clanName}">Team Name</td>
-				        <td th:text="${team.gameName}">Leader</td>
-				        <td th:text="${team.gameName}">Team Rank</td>
-				        <td th:text="">ver</td>
-				    </tr>
-				</th:block>
-			</div>
 			
+				<div th:include="/user/teamSearchResult :: teamSearchResult"  id="idTeamSearchResult"></div>
+
 			
 			<div id="buildTeamBox">
 				<div th:include="/user/buildTeam :: buildTeam"></div>
