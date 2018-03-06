@@ -4,13 +4,13 @@ $(document).ready(function() {
 	$("#searchTeamBox").hide();
 	$("#searchTeamResult").hide();
 	$("#buildTeamBox").hide();
-	
-	
+	$("#idMostrarResultado").hide();
 });
 
 $("#btnMyTeams").click(function() {
 	$("#searchTeamBox").hide();
 	$("#buildTeamBox").hide();
+	$("#idMostrarResultado").hide();
 	var selected = getGameSelected();
 	if(selected == '0'){
 		alert('Seleccionar Juego.');
@@ -20,6 +20,7 @@ $("#btnMyTeams").click(function() {
 
 $("#btnBuildTeam").click(function() {
 	$("#searchTeamBox").hide();
+	$("#idMostrarResultado").hide();
 	var selected = getGameSelected();
 	if(selected == '0'){
 		alert('Seleccionar Juego.');
@@ -65,17 +66,12 @@ $("#btnDoSearch").click(function() {
 			  		gameId : selected,
 			  		criteria : teamName
 		  		},
-		  dataType: 'json',
 		  success: function (data){
-			  alert(data);
-			  $('#table').data(data);
-//			    $('#table').bootstrapTable({
-//			        data: data
-//			    });
-//			  $('#teamSearchResult').html(data);
-//			  $('#idTeamSearchResult').show();
+			  $('#showSearchTeamResult').html(data);
+			  $("#idMostrarResultado").show();
 		  },
 		  error: function (e){
+			  alert('error ' + e);
 		  }
 		});
 	
@@ -102,4 +98,8 @@ function getGameSelected(){
 
 function getTeamName(){
 	return $('#teamName').val();;
+}
+
+function getTeamProfile(teamId){
+	alert('Id de Equipo ' +teamId);
 }

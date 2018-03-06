@@ -46,8 +46,9 @@
 				</div>
 			</div>
 			
-				<div th:include="/user/teamSearchResult :: teamSearchResult"  id="idTeamSearchResult"></div>
-
+			<div id="idMostrarResultado">
+				<div th:replace="/user/teamSearchResult :: teamSearchResult"></div>
+			</div>
 			
 			<div id="buildTeamBox">
 				<div th:include="/user/buildTeam :: buildTeam"></div>

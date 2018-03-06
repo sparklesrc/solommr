@@ -1,14 +1,29 @@
+<div th:fragment="teamSearchResult" id="showSearchTeamResult">
 
-<div th:fragment="teamSearchResult">
-	<div class="container">
-		<table id="table" data-height="460">
-			<thead>
+	<div class="container" align="center">
+		<div th:if="${hasData}">
+
+			<table border="1">
 				<tr>
-					<th data-field="id">Id de Equipo</th>
-					<th data-field="name">Nombre de Equipo</th>
-					<th data-field="leader">Team Leader</th>
+					<td colspan="5">Id de Equipo</td>
+					<td colspan="5">Nombre de Equipo</td>
+					<td colspan="5">Leader Actual</td>
+					<td>Team Profile</td>
 				</tr>
-			</thead>
-		</table>
+				<th:block th:each="team : ${teams}">
+					<tr>
+						<td colspan="5" th:text="${team.id}">...</td>
+						<td colspan="5" th:text="${team.name}">...</td>
+						<td colspan="5" th:text="${team.leader}">...</td>
+						<td align="right"><a href="javascript:getTeamProfile(1);">VER</a></td>
+					</tr>
+				</th:block>
+			</table>
+		</div>
+
+		<div th:unless="${hasData}">
+			<div>No se encontraron coincidencias.</div>
+		</div>
+
 	</div>
 </div>

@@ -48,11 +48,8 @@ public class ClanAdapter {
 		try {
 			obj = mapper.readValue(response.getBody().toString(), ClanDataResponse.class);
 		} catch (Exception e) {
-			System.out.println("ERROR EN MAPPING " + obj.getClanName());
+			System.out.println("ERROR EN MAPPING " + criteria);
 		}
-
-		System.out.println("PRINT VALUES " + obj.getClanName());
-
 		return obj;
 	}
 }

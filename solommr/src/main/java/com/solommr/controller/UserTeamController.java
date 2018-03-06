@@ -31,12 +31,12 @@ public class UserTeamController {
 	}
 
 	@RequestMapping(value = "/searchTeam", method = RequestMethod.POST)
-	public @ResponseBody List<TeamSearchResponse> searchTeam(TeamSearchReq request, Model model) {
+	public String searchTeam(TeamSearchReq request, Model model) {
 		ClanDataResponse response = clanService.searchTeam(request);
 		model.addAttribute("hasData", response == null ? false : true);
 		model.addAttribute("teams", prepareTeamSearchResult(response));
-		return prepareTeamSearchResult(response);
-//		return new ModelAndView("user/teamSearchResult :: teamSearchResult");
+//		return prepareTeamSearchResult(response);
+		return "user/teamSearchResult :: teamSearchResult";
 	}
 
 	@RequestMapping(value = "/buildTeam", method = RequestMethod.POST)
