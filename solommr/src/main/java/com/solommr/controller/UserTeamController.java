@@ -3,6 +3,8 @@ package com.solommr.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +33,13 @@ public class UserTeamController {
 	}
 
 	@RequestMapping(value = "/searchTeam", method = RequestMethod.POST)
-	public String searchTeam(TeamSearchReq request, Model model) {
+	public String searchTeam(HttpServletRequest req, TeamSearchReq request, Model model) {
+		System.out.println("CONTEXT " + req.getContextPath());
 		ClanDataResponse response = clanService.searchTeam(request);
 		model.addAttribute("hasData", response == null ? false : true);
 		model.addAttribute("teams", prepareTeamSearchResult(response));
 //		return prepareTeamSearchResult(response);
-		return "user/teamSearchResult :: teamSearchResult";
+		return "/user/teamSearchResult :: teamSearchResult";
 	}
 
 	@RequestMapping(value = "/buildTeam", method = RequestMethod.POST)

@@ -61,7 +61,7 @@ $("#btnDoSearch").click(function() {
 
 	$.ajax({
 		  type: "POST",
-		  url: "/user/searchTeam",
+		  url: "/solommr/user/searchTeam",
 		  data: {
 			  		gameId : selected,
 			  		criteria : teamName
@@ -102,4 +102,12 @@ function getTeamName(){
 
 function getTeamProfile(teamId){
 	alert('Id de Equipo ' +teamId);
+}
+
+$("#tblTeamSearchResult tr").click(function() {
+    window.location = $(this).find('td:eq(3)').attr("href");
+});
+
+function rowClicked(value) {
+    location.href = "/myurl?param=" + value;
 }

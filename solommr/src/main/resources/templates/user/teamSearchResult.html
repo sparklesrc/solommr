@@ -12,10 +12,11 @@
 				</tr>
 				<th:block th:each="team : ${teams}">
 					<tr>
-						<td colspan="5" th:text="${team.id}">...</td>
+						<td colspan="5" th:id="${team.id}" th:text="${team.id}">...</td>
 						<td colspan="5" th:text="${team.name}">...</td>
 						<td colspan="5" th:text="${team.leader}">...</td>
-						<td align="right"><a href="javascript:getTeamProfile(1);">VER</a></td>
+<!-- 						<td align="right"><a href="'javascript:rowClicked(\'' + ${team.id} + '\');'">VER</a></td> -->
+						<td colspan="5" th:onclick="'javascript:rowClicked(\'' + ${team.id} + '\');'">...</td>
 					</tr>
 				</th:block>
 			</table>
