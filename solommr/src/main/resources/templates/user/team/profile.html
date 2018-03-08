@@ -1,0 +1,24 @@
+<div th:fragment="profile" id="idProfile">
+	<div class="container" align="center">
+		<p>
+			Team Name: <span th:text="${teamName}">Nombre de Team</span>
+		</p>
+
+		<p>Los miembros actuales son:</p>
+
+		<table border="1">
+			<tr>
+				<td colspan="3">Id de Usuario</td>
+				<td colspan="4">Nombre de Usuario</td>
+				<td colspan="4">Tipo de Miembro</td>
+			</tr>
+			<th:block th:each="member : ${members}">
+				<tr>
+					<td colspan="3" th:text="${member.userId}">...</td>
+					<td colspan="4" th:text="${member.name}">...</td>
+					<td colspan="4" th:text="${member.type}">...</td>
+				</tr>
+			</th:block>
+		</table>
+	</div>
+</div>

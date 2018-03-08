@@ -32,27 +32,33 @@ public class UserTeamController {
 		return "/user/team";
 	}
 
-	@RequestMapping(value = "/searchTeam", method = RequestMethod.POST)
+	@RequestMapping(value = "/team/search", method = RequestMethod.POST)
 	public String searchTeam(HttpServletRequest req, TeamSearchReq request, Model model) {
-		System.out.println("CONTEXT " + req.getContextPath());
 		ClanDataResponse response = clanService.searchTeam(request);
 		model.addAttribute("hasData", response == null ? false : true);
 		model.addAttribute("teams", prepareTeamSearchResult(response));
-//		return prepareTeamSearchResult(response);
-		return "/user/teamSearchResult :: teamSearchResult";
+		return "/user/team/teamSearchResult :: teamSearchResult";
 	}
 
-	@RequestMapping(value = "/buildTeam", method = RequestMethod.POST)
+	@RequestMapping(value = "/team/build", method = RequestMethod.POST)
 	public @ResponseBody ClanDataResponse buildTeamPost() {
 		return null;
 	}
 
-	@RequestMapping(value = "/buildTeam", method = RequestMethod.GET)
+	@RequestMapping(value = "/team/build", method = RequestMethod.GET)
 	public String buildTeamGet(Model model) {
 		model.addAttribute("teams", null);
-		return "user/buildTeam :: buildTeam";
+		return "user/team/build :: buildTeam";
 	}
 
+	@RequestMapping(value = "/team/profile", method = RequestMethod.POST)
+	public String getTeamProfile(TeamSearchReq request, Model model) {
+		ClanDataResponse cDR = clanService.searchTeam(request);
+		model.addAttribute("teamName", cDR.getClanName());
+		model.addAttribute("members", cDR.getMembers());
+		return "user/team/profile :: profile";
+	}
+	
 	private List<TeamSearchResponse> prepareTeamSearchResult(ClanDataResponse response) {
 		List<TeamSearchResponse> ltsr = new ArrayList();
 		TeamSearchResponse tsr = new TeamSearchResponse();
