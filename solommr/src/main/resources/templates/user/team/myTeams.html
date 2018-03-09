@@ -1,0 +1,33 @@
+<div th:fragment="myTeams" id="idMyTeams">
+
+	<div class="container" align="center">
+		<div th:if="${hasData}">
+
+			<p>Tus Equipos Actuales son:</p>
+
+			<table border="1">
+				<tr>
+					<td colspan="5">Id de Equipo</td>
+					<td colspan="5">Nombre de Equipo</td>
+					<td colspan="5">Tipo de Miembro</td>
+					<td>Team Profile</td>
+				</tr>
+				<th:block th:each="team : ${teams}">
+					<tr>
+						<td colspan="5" th:text="${team.id}">...</td>
+						<td colspan="5" th:text="${team.name}">...</td>
+						<td colspan="5" th:text="${team.memberType}">...</td>
+						<td colspan="5"
+							th:onclick="'javascript:getTeamProfile(\'' + ${team.id} + '\');'"
+							align="center"><a>VER</a></td>
+					</tr>
+				</th:block>
+			</table>
+		</div>
+
+		<div th:unless="${hasData}">
+			<div>No se encontraron coincidencias.</div>
+		</div>
+
+	</div>
+</div>
