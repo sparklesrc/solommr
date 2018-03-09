@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.solommr.model.ClanDataResponse;
 import com.solommr.model.ClanDataResponse.Members;
+import com.solommr.model.Game;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
 import com.solommr.service.ClanService;
+import com.solommr.service.GameService;
 
 @Controller
 @RequestMapping("/user")
@@ -26,9 +28,12 @@ public class UserTeamController {
 
 	@Autowired
 	private ClanService clanService;
+	@Autowired
+	private GameService gameService;
 
 	@GetMapping("/team")
 	public String index(Model model) {
+		model.addAttribute("games", gameService.getActiveGames());
 		return "/user/team";
 	}
 

@@ -74,6 +74,16 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Spring Framework Caching Support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
 		<!-- OpenId for Steam -->
 <!-- 		<dependency> -->
 <!-- 			<groupId>org.openid4java</groupId> -->
