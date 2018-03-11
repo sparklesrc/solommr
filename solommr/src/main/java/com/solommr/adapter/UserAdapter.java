@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.SteamCSGOProfile;
+import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
 
 @Component
@@ -29,6 +30,9 @@ public class UserAdapter extends BaseAdapter {
 
 	@Value("${steam.key}")
 	private String steamKey;
+
+	@Value("${steam.url.profile}")
+	private String playerSummarie;
 
 	public UserInfo getUserInfoByMail(String mail) {
 		Map req_payload = new HashMap();
@@ -80,6 +84,21 @@ public class UserAdapter extends BaseAdapter {
 			return mapper.readValue(response, UserInfo.class);
 		} catch (Exception e) {
 			System.out.println("Error en Synchronize Steam UserId/SteamId " + userId + "/" + steamId);
+			return null;
+		}
+	}
+
+	public SteamPlayerSummarie getSteamPlayerSummarie(String steamId) {
+		URI targetUrl = UriComponentsBuilder.fromUriString(playerSummarie).queryParam("key", steamKey)
+				.queryParam("steamids", steamId).build().encode().toUri();
+
+		String result = restTemplate.getForObject(targetUrl, String.class);
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(result, SteamPlayerSummarie.class);
+		} catch (Exception e) {
+			System.out.println("Error en Mapping obtener CSGO Steam Profile ");
 			return null;
 		}
 	}

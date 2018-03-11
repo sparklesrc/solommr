@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamCSGOProfile.Stats;
+import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
 import com.solommr.service.GameService;
 import com.solommr.service.UserService;
@@ -58,6 +59,10 @@ public class UserProfileController extends BaseController {
 		model.addAttribute("isUserSyncWithSteam", currentUser.isUserSyncWithSteam());
 		model.addAttribute("gameId", gameId);
 
+		// PlayerSummarie
+		SteamPlayerSummarie steamPlayerSummarie = userService.getSteamPlayerSummarie(currentUser.getSteamId());
+		model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
+		
 		// CSGO
 		if ("1".equals(gameId)) {
 			SteamCSGOProfile steamCSGOProfile = userService.getSteamProfile(currentUser.getSteamId());
