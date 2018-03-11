@@ -1,0 +1,33 @@
+<div th:fragment="editProfile" id="idFragmentEditProfile">
+
+	<div class="container" align="center">
+		<h3 th:inline="text">Perfil de [[${#httpServletRequest.remoteUser}]]</h3>
+		<form action="#">
+			<table border="1">
+				<tr>
+					<td><label th:text="Mail" /></td>
+					<td><input type="text" th:value="${mail}"/></td>
+				</tr>
+				<tr>
+					<td><label th:text="Nick" /></td>
+					<td><input type="text" th:value="SandMan"/></td>
+				</tr>
+				<tr>
+					<td><label th:text="Celular" /></td>
+					<td><input type="text" th:value="999888777"/></td>
+				</tr>
+				<tr>
+					<td><label th:text="Rol" /></td>
+					<td><input type="text" th:value="AWP"/></td>
+				</tr>
+				<tr>
+					<td><label th:text="Pais" /></td>
+					<td><input type="text" th:value="Peru"/></td>
+				</tr>
+				<tr>
+					<td><input id="btnSaveProfile" type="submit" value="Guardar" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>

@@ -14,18 +14,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserInfo getUserByMail(String mail) {
-		System.out.println("En Service");
 		return userAdapter.getUserInfoByMail(mail);
 	}
 
 	@Override
-	public SteamCSGOProfile getSteamProfile() {
-		SteamCSGOProfile csgoProfile = userAdapter.getSteamProfile();
-		if (csgoProfile != null) {
-
-		}
-
+	public SteamCSGOProfile getSteamProfile(String steamId) {
+		SteamCSGOProfile csgoProfile = userAdapter.getSteamProfile(steamId);
 		return csgoProfile;
+	}
+
+	@Override
+	public UserInfo syncSteamUser(Long userId, String steamId) {
+		return userAdapter.syncSteamUser(userId, steamId);
 	}
 
 }

@@ -19,14 +19,10 @@
 			<div class="container" style="width:auto;">
 				<div style="background-color: lightblue;">
 						<p align="center"> Juego
-							<select id="criteria">
-								<option value="0">Seleccionar</option>
-								<option value="1">CSGO</option>
-								<option value="2">DOTA</option>
-<!-- 								<c:forEach var="item" items="${games}"> -->
-<!-- 							    	<option value="${item.gameId}"></option> -->
-<!-- 							    </c:forEach> -->
-							</select>
+						<select id="criteria">
+						    <option th:value="0" th:text="Seleccionar"></option>
+						    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
+						</select>
 						</p>
 				</div>
 				<div class="btn-group btn-group-justified">
@@ -79,7 +75,6 @@
 	</div>
 	<!-- /.container -->
 	<div th:replace="/fragments/footer :: footer" />
-<!-- 	<script type="text/javascript" src="/js/user/team.js"></script> -->
 	<script type="text/javascript" src="/solommr/js/user/team.js"></script>
 </body>
 </html>

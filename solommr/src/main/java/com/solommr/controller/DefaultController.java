@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.solommr.model.UserInfo;
 
 @Controller
-public class DefaultController {
+public class DefaultController extends BaseController {
 
 	@GetMapping("/")
 	public String home1() {
@@ -17,8 +17,7 @@ public class DefaultController {
 
 	@GetMapping("/home")
 	public String home(HttpServletRequest request) {
-		UserInfo usuario = (UserInfo) request.getSession().getAttribute("SESSION_USUARIO");
-		if (usuario != null) {
+		if (this.getCurrentUser(request) == null) {
 			return "redirect:/user";
 		}
 		return "/home";

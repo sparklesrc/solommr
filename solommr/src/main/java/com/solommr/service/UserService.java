@@ -7,5 +7,7 @@ public interface UserService {
 
 	UserInfo getUserByMail(String mail);
 
-	SteamCSGOProfile getSteamProfile();
+	SteamCSGOProfile getSteamProfile(String steamId);
+
+	UserInfo syncSteamUser(Long userId, String steamId);
 }

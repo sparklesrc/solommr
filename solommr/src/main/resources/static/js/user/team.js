@@ -40,7 +40,6 @@ $("#btnDoBuildTeam").click(function() {
 $("#btnSearchTeam").click(function() {
 	hideAll();
 	var selected = getGameSelected();
-//	alert('SELECCIONADO ' + selected);
 //	return;
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
@@ -121,3 +120,10 @@ function getTeamProfile(teamId) {
 		}
 	});
 }
+
+$("#criteria").on('change', function() {
+	var selected = getGameSelected();
+	if (selected == '0') {
+		hideAll();
+	}
+});

@@ -1,0 +1,20 @@
+<div th:fragment="myStats" id="idFragmentMyStats">
+
+	<div class="container" align="center">
+		<div th:if="${isUserSyncWithSteam}">
+			<div id="idMostrarGameStats">
+				<div th:if="${gameId} == 1">
+					<div th:replace="/user/profile/myStatsCSGO :: myStatsCSGO"></div>
+				</div>
+				<div th:if="${gameId} == 2">
+				</div>
+			</div>
+		</div>
+
+		<div th:unless="${isUserSyncWithSteam}">
+			<div>Al Parecer aun no has vinculado tu cuenta con Steam.</div>
+			<a href="/solommr/trade">VINCULAR</a>
+		</div>
+
+	</div>
+</div>

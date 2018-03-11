@@ -21,6 +21,9 @@ public class UserAdapter extends BaseAdapter {
 	@Value("${projectrc.url.user.findByMail}")
 	private String findByMail;
 
+	@Value("${projectrc.url.user.syncSteamUser}")
+	private String syncSteamUser;
+
 	@Value("${steam.url.csgo.profile}")
 	private String steamCSGOProfile;
 
@@ -46,9 +49,9 @@ public class UserAdapter extends BaseAdapter {
 		}
 	}
 
-	public SteamCSGOProfile getSteamProfile() {
+	public SteamCSGOProfile getSteamProfile(String steamId) {
 		URI targetUrl = UriComponentsBuilder.fromUriString(steamCSGOProfile).queryParam("appid", "730")
-				.queryParam("key", steamKey).queryParam("steamid", "76561198069746006").build().encode().toUri();
+				.queryParam("key", steamKey).queryParam("steamid", steamId).build().encode().toUri();
 
 		String result = restTemplate.getForObject(targetUrl, String.class);
 
@@ -57,6 +60,26 @@ public class UserAdapter extends BaseAdapter {
 			return mapper.readValue(result, SteamCSGOProfile.class);
 		} catch (Exception e) {
 			System.out.println("Error en Mapping obtener CSGO Steam Profile ");
+			return null;
+		}
+	}
+
+	public UserInfo syncSteamUser(Long userId, String steamId) {
+		Map req_payload = new HashMap();
+		req_payload.put("userId", userId);
+		req_payload.put("steamId", steamId);
+
+		String response = this.doPostCall(req_payload, syncSteamUser);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, UserInfo.class);
+		} catch (Exception e) {
+			System.out.println("Error en Synchronize Steam UserId/SteamId " + userId + "/" + steamId);
 			return null;
 		}
 	}

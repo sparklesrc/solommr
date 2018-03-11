@@ -14,15 +14,14 @@ import com.solommr.model.UserInfo;
 import com.solommr.service.ClanService;
 
 @Controller
-public class UserController {
+public class UserController extends BaseController {
 
 	@Autowired
 	private ClanService clanService;
 
 	@GetMapping("/user")
 	public String index(HttpServletRequest request, Model model) {
-		UserInfo usuario = (UserInfo) request.getSession().getAttribute("SESSION_USUARIO");
-		if (usuario == null) {
+		if (this.getCurrentUser(request) == null) {
 			return "redirect:/login";
 		}
 		return "/user/user";
@@ -30,8 +29,7 @@ public class UserController {
 
 	@GetMapping("/user/home")
 	public String userHome(HttpServletRequest request, Model model) {
-		UserInfo usuario = (UserInfo) request.getSession().getAttribute("SESSION_USUARIO");
-		if (usuario == null) {
+		if (this.getCurrentUser(request) == null) {
 			return "redirect:/login";
 		}
 		return "/user/user";

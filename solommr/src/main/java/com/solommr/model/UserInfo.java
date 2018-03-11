@@ -2,12 +2,12 @@ package com.solommr.model;
 
 public class UserInfo {
 
+	private Long userId;
 	private String steamId;
-	private String steamName;
-	private String steamAvatar;
 	private String mail;
 	private String password;
 	private String rol;
+	private boolean isUserSyncWithSteam;
 
 	public String getSteamId() {
 		return steamId;
@@ -15,22 +15,6 @@ public class UserInfo {
 
 	public void setSteamId(String steamId) {
 		this.steamId = steamId;
-	}
-
-	public String getSteamName() {
-		return steamName;
-	}
-
-	public void setSteamName(String steamName) {
-		this.steamName = steamName;
-	}
-
-	public String getSteamAvatar() {
-		return steamAvatar;
-	}
-
-	public void setSteamAvatar(String steamAvatar) {
-		this.steamAvatar = steamAvatar;
 	}
 
 	public String getMail() {
@@ -55,6 +39,22 @@ public class UserInfo {
 
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public boolean isUserSyncWithSteam() {
+		return isUserSyncWithSteam;
+	}
+
+	public void setUserSyncWithSteam(boolean isUserSyncWithSteam) {
+		this.isUserSyncWithSteam = isUserSyncWithSteam;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

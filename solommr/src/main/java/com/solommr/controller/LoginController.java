@@ -3,15 +3,13 @@ package com.solommr.controller;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.solommr.model.UserInfo;
 
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
 
 	@GetMapping("/login")
 	public String login(HttpServletRequest request) {
-		UserInfo usuario = (UserInfo) request.getSession().getAttribute("SESSION_USUARIO");
-		if (usuario != null) {
+		if (this.getCurrentUser(request) != null) {
 			return "redirect:/user";
 		}
 		return "/login";

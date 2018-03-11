@@ -10,19 +10,35 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1>Sincroniza tu cuenta con Steam</h1>
+			<h1>P&aacute;gina de Perfil ! </h1>
 
-			<h1 th:inline="text">Hola
-				[[${#httpServletRequest.remoteUser}]]!</h1>
+			<div class="container" style="width:auto;">
+				<div style="background-color: lightblue;">
+						<p align="center"> Juego
+						<select id="criteria">
+						    <option th:value="0" th:text="Seleccionar"></option>
+						    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
+						</select>
+						</p>
+				</div>
+				<div class="btn-group btn-group-justified">
+					<a id="btnMyStats" href="#" class="btn btn-primary">Mis Stats</a> 
+					<a id="btnEditProfile" href="#" class="btn btn-primary">Editar Perfil</a> 
+				</div>
+			</div>
 
-			<p>Total Kills: <span th:text="${total_kills}">Total kill</span></p>
+			<br></br>
 
-			<div th:if="${isNotSincronized}">
-				<a th:href="@{/user/profile/sync}">Sincronizar</a>
+			<div id="verMyStats">
+				<div th:include="/user/profile/myStats :: myStats"></div>
+			</div>
+
+			<div id="verEditProfile">
+				<div th:replace="/user/profile/editProfile :: editProfile"></div>
 			</div>
 
 			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" />
+				<div align="right"><input type="submit" value="Sign Out" /></div>
 			</form>
 
 		</div>
@@ -30,7 +46,6 @@
 	</div>
 	<!-- /.container -->
 	<div th:replace="/fragments/footer :: footer" />
-<!-- 	<script type="text/javascript" src="/solommr/js/user/profile.js"></script> -->
-	<script type="text/javascript" src="/js/user/profile.js"></script>
+	<script type="text/javascript" src="/solommr/js/user/profile.js"></script>
 </body>
 </html>
