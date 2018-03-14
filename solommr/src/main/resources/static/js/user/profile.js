@@ -23,7 +23,6 @@ $("#btnMyStats").click(function() {
 			gameId : selected
 		},
 		success : function(data) {
-			alert(data);
 			hideAll();
 			$('#verMyStats').html(data);
 			$("#verMyStats").show();
