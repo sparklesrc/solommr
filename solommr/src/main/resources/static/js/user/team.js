@@ -13,13 +13,31 @@ $(document).ready(function() {
 	hideAll();
 });
 
-$("#btnMyTeams").click(function() {
+$("#btnMyTeam").click(function() {
 	hideAll();
 	var selected = getGameSelected();
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
 		return;
 	}
+
+	$.ajax({
+		type : "GET",
+		url : "/solommr/user/team/myTeam",
+		data : {
+			gameId : selected
+		},
+		success : function(data) {
+			$('#idMyTeam').html(data);
+			hideAll();
+			$("#myTeam").show();
+		},
+		error : function(e) {
+			$('#idMyTeam').html('Al parecer hubo un error.');
+			hideAll();
+			$("#myTeam").show();
+		}
+	});
 });
 
 $("#btnBuildTeam").click(function() {

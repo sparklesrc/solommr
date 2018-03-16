@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.solommr.model.ClanDataResponse;
 import com.solommr.model.ClanDataResponse.Members;
 import com.solommr.model.TeamSearchReq;
+import com.solommr.model.UserInfo;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
 import com.solommr.service.ClanService;
 import com.solommr.service.GameService;
 
 @Controller
 @RequestMapping("/user")
-public class UserTeamController {
+public class UserTeamController extends BaseController{
 
 	@Autowired
 	private ClanService clanService;
@@ -75,5 +76,46 @@ public class UserTeamController {
 		}
 		ltsr.add(tsr);
 		return ltsr;
+	}
+
+	@GetMapping("/team/myTeam")
+	public String myTeam(HttpServletRequest request, Model model) {
+		String gameId = (String) request.getParameter("gameId");
+		UserInfo user = this.getCurrentUser(request);
+		boolean userHasTeam = false;
+		if (user == null && gameId == null) {
+			return "redirect:/login";
+		}
+		List<List<Integer>> mappedTeams = user.getUserTeams();
+		String clanId = null;
+		if(mappedTeams!=null) {
+			for(List<Integer> e : mappedTeams) {
+				if(e!=null && e.get(0)==Integer.parseInt(gameId)) {
+					clanId = e.get(1).toString();
+					userHasTeam = true;
+					break;
+				}
+			}
+		}
+
+		if (userHasTeam && clanId != null) {
+			TeamSearchReq req = new TeamSearchReq();
+			req.setCriteria(clanId);
+			req.setGameId(gameId);
+			boolean isLeader = false;
+			ClanDataResponse cDR = clanService.searchTeam(req);
+			model.addAttribute("teamName", cDR.getClanName());
+			model.addAttribute("members", cDR.getMembers());
+			for(Members member : cDR.getMembers()) {
+				if(member.getUserId().equals(user.getUserId())) {
+					isLeader = "Team Leader".equals(member.getType());
+					break;
+				}
+			}
+			model.addAttribute("isLeader", isLeader);
+		}
+
+		model.addAttribute("userHasTeam", userHasTeam);
+		return "user/team/myTeam :: myTeam";
 	}
 }

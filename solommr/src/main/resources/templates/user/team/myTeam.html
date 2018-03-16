@@ -1,0 +1,36 @@
+<div th:fragment="myTeam" id="idMyTeam">
+
+	<div class="container" align="center">
+		<div th:if="${userHasTeam}">
+
+			<p>
+				Team Name: <span th:text="${teamName}">Nombre de Team</span>
+			</p>
+
+			<div th:if="${isLeader}"> Eres Team Lider </div>
+			<div th:unless="${isLeader}"> Eres Member </div>
+
+			<p>Los miembros actuales son:</p>
+
+			<table border="1">
+				<tr>
+					<td colspan="3">Id de Usuario</td>
+					<td colspan="4">Nombre de Usuario</td>
+					<td colspan="4">Tipo de Miembro</td>
+				</tr>
+				<th:block th:each="member : ${members}">
+					<tr>
+						<td colspan="3" th:text="${member.userId}">...</td>
+						<td colspan="4" th:text="${member.name}">...</td>
+						<td colspan="4" th:text="${member.type}">...</td>
+					</tr>
+				</th:block>
+			</table>
+		</div>
+
+		<div th:unless="${userHasTeam}">
+			<div>Aun no tienes un equipo activo. Crea o Postula a uno.</div>
+		</div>
+
+	</div>
+</div>

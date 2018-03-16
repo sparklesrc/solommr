@@ -60,8 +60,8 @@ public class UserProfileController extends BaseController {
 		model.addAttribute("gameId", gameId);
 
 		// PlayerSummarie
-		SteamPlayerSummarie steamPlayerSummarie = userService.getSteamPlayerSummarie(currentUser.getSteamId());
-		model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
+//		SteamPlayerSummarie steamPlayerSummarie = userService.getSteamPlayerSummarie(currentUser.getSteamId());
+//		model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
 		
 		// CSGO
 		if ("1".equals(gameId)) {
