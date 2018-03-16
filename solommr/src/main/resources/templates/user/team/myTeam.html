@@ -3,29 +3,49 @@
 	<div class="container" align="center">
 		<div th:if="${userHasTeam}">
 
-			<p>
-				Team Name: <span th:text="${teamName}">Nombre de Team</span>
-			</p>
 
-			<div th:if="${isLeader}"> Eres Team Lider </div>
-			<div th:unless="${isLeader}"> Eres Member </div>
+			<div class="modal-body row">
+				<div class="col-md-9">
+					<p>
+						Team Name: <span th:text="${teamName}">Nombre de Team</span>
+					</p>
 
-			<p>Los miembros actuales son:</p>
+					<div th:if="${isLeader}">Eres Team Leader</div>
+					<div th:unless="${isLeader}">Eres Member</div>
 
-			<table border="1">
-				<tr>
-					<td colspan="3">Id de Usuario</td>
-					<td colspan="4">Nombre de Usuario</td>
-					<td colspan="4">Tipo de Miembro</td>
-				</tr>
-				<th:block th:each="member : ${members}">
-					<tr>
-						<td colspan="3" th:text="${member.userId}">...</td>
-						<td colspan="4" th:text="${member.name}">...</td>
-						<td colspan="4" th:text="${member.type}">...</td>
-					</tr>
-				</th:block>
-			</table>
+					<p>Los miembros actuales son:</p>
+
+					<table border="1">
+						<tr>
+							<td colspan="3">Id de Usuario</td>
+							<td colspan="4">Nombre de Usuario</td>
+							<td colspan="4">Tipo de Miembro</td>
+							<div th:if="${isLeader}">
+								<td colspan="4">Editar</td>
+							</div>
+						</tr>
+						<th:block th:each="member : ${members}">
+							<tr>
+								<td colspan="3" th:text="${member.userId}">...</td>
+								<td colspan="4" th:text="${member.name}">...</td>
+								<td colspan="4" th:text="${member.type}">...</td>
+								<div th:if="${isLeader}">
+									<td colspan="4">Editar</td>
+								</div>
+							</tr>
+						</th:block>
+					</table>
+				</div>
+				<div class="col-md-3">
+					<ul class="list-group">
+						<li class="list-group-item" onclick="javascript:reclutar()"><a>Reclutar</a></li>
+						<li class="list-group-item" onclick="javascript:reclutar()"><a>Solicitudes</a></li>
+						<li class="list-group-item" onclick="javascript:reclutar()"><a>Retos</a></li>
+						<li class="list-group-item" onclick="javascript:reclutar()"><a>Eliminar Equipo</a></li>
+					</ul>
+				</div>
+			</div>
+
 		</div>
 
 		<div th:unless="${userHasTeam}">

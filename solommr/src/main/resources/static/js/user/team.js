@@ -6,6 +6,7 @@ function hideAll(){
 	$("#buildTeamBox").hide();
 	$("#idMostrarResultado").hide();
 	$("#teamProfile").hide();
+	$("#idMyTeam").hide();
 }
 
 $(document).ready(function() {
@@ -30,12 +31,12 @@ $("#btnMyTeam").click(function() {
 		success : function(data) {
 			$('#idMyTeam').html(data);
 			hideAll();
-			$("#myTeam").show();
+			$("#idMyTeam").show();
 		},
 		error : function(e) {
 			$('#idMyTeam').html('Al parecer hubo un error.');
 			hideAll();
-			$("#myTeam").show();
+			$("#idMyTeam").show();
 		}
 	});
 });
@@ -145,3 +146,7 @@ $("#criteria").on('change', function() {
 		hideAll();
 	}
 });
+
+function reclutar(){
+	alert('Reclutar');
+}
