@@ -7,6 +7,8 @@ function hideAll(){
 	$("#idMostrarResultado").hide();
 	$("#teamProfile").hide();
 	$("#idMyTeam").hide();
+	$("#reclutar").hide();
+	$("#reclutarResult").hide();
 }
 
 $(document).ready(function() {
@@ -149,4 +151,6 @@ $("#criteria").on('change', function() {
 
 function reclutar(){
 	alert('Reclutar');
+	$("#myTeamContent").hide();
+	$("#reclutar").show();
 }

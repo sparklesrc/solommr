@@ -1,5 +1,7 @@
 package com.solommr.service;
 
+import com.solommr.model.SignUp;
+import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
@@ -13,4 +15,8 @@ public interface UserService {
 	UserInfo syncSteamUser(Long userId, String steamId);
 
 	SteamPlayerSummarie getSteamPlayerSummarie(String steamId);
+
+	void signUp(SignUp request);
+
+	UserInfo confirmPin(Pin request);
 }

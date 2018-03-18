@@ -3,50 +3,138 @@
 	<div class="container" align="center">
 		<div th:if="${userHasTeam}">
 
-
 			<div class="modal-body row">
-				<div class="col-md-9">
-					<p>
-						Team Name: <span th:text="${teamName}">Nombre de Team</span>
-					</p>
+				<div class="col-md-10">
+					<div id="myTeamContent">
 
-					<div th:if="${isLeader}">Eres Team Leader</div>
-					<div th:unless="${isLeader}">Eres Member</div>
+						<div class="row">
+							<div class="col-md-4">
 
-					<p>Los miembros actuales son:</p>
-
-					<table border="1">
-						<tr>
-							<td colspan="3">Id de Usuario</td>
-							<td colspan="4">Nombre de Usuario</td>
-							<td colspan="4">Tipo de Miembro</td>
-							<div th:if="${isLeader}">
-								<td colspan="4">Editar</td>
-							</div>
-						</tr>
-						<th:block th:each="member : ${members}">
-							<tr>
-								<td colspan="3" th:text="${member.userId}">...</td>
-								<td colspan="4" th:text="${member.name}">...</td>
-								<td colspan="4" th:text="${member.type}">...</td>
-								<div th:if="${isLeader}">
-									<td colspan="4">Editar</td>
+								<div class="img-box" align="left">
+									<img
+										src="https://steamuserimages-a.akamaihd.net/ugc/151262938627271690/C3A0A7313C653B47B2C8000DF872FCC736F954D6/"
+										class="img-responsive" />
 								</div>
-							</tr>
-						</th:block>
-					</table>
+
+								<p>
+									Team Name: <span th:text="${teamName}">Nombre de Team</span>
+								</p>
+
+								<div th:if="${isLeader}">Eres Team Leader</div>
+								<div th:unless="${isLeader}">Eres Member</div>
+
+							</div>
+							<div class="col-md-6">
+								<div align="center">
+
+									<p>Los miembros actuales son:</p>
+
+									<table border="1">
+										<tr>
+											<td colspan="3">Id de Usuario</td>
+											<td colspan="4">Nombre de Usuario</td>
+											<td colspan="4">Tipo de Miembro</td>
+											<div th:if="${isLeader}">
+												<td colspan="4">Editar</td>
+											</div>
+										</tr>
+										<th:block th:each="member : ${members}">
+											<tr>
+												<td colspan="3" th:text="${member.userId}">...</td>
+												<td colspan="4" th:text="${member.name}">...</td>
+												<td colspan="4" th:text="${member.type}">...</td>
+												<div th:if="${isLeader}">
+													<td colspan="4">Editar</td>
+												</div>
+											</tr>
+										</th:block>
+									</table>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="reclutar">
+						<form class="form-inline" th:action="@{/user/team/reclutarSearch}"
+							method="post">
+							<input type="text" class="form-control mb-2 mr-sm-2" name="nickName"
+								id="inlineFormInputName2" placeholder="Nick Name" />
+							<div class="input-group mb-2 mr-sm-2">
+								<input type="text" class="form-control" name="email"
+									id="inlineFormInputGroupUsername2" placeholder="Email" />
+							</div>
+							<div class="input-group mb-2 mr-sm-2">
+								<input type="number" class="form-control" name="edad"
+									id="inlineFormInputGroupUsername2" placeholder="Edad" />
+							</div>
+							<div class="input-group mb-2 mr-sm-2">
+								<input type="text" class="form-control" name="pais"
+									id="inlineFormInputGroupUsername2" placeholder="Pais" />
+							</div>
+							<button type="submit" class="btn btn-primary mb-2">Buscar</button>
+
+
+							<div class="form-group container-fluid">
+								<div class="col-lg-12">
+									<label class="checkbox-inline"> <input type="checkbox"
+										name="rol" value="1"/> Awper
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="rol" value="2"/> Entry Fragger
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="rol" value="3"/> Support
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="rol" value="4"/> Lurker
+									</label>
+								</div>
+							</div>
+
+						</form>
+
+						<div id="reclutarResult">
+							<div th:replace="/user/team/reclutarResult :: reclutarResult"></div>
+						</div>
+
+					</div>
+
+
 				</div>
-				<div class="col-md-3">
-					<ul class="list-group">
-						<li class="list-group-item" onclick="javascript:reclutar()"><a>Reclutar</a></li>
-						<li class="list-group-item" onclick="javascript:reclutar()"><a>Solicitudes</a></li>
-						<li class="list-group-item" onclick="javascript:reclutar()"><a>Retos</a></li>
-						<li class="list-group-item" onclick="javascript:reclutar()"><a>Eliminar Equipo</a></li>
-					</ul>
+				<div class="col-md-2">
+					<div class="panel-group">
+
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<ul class="list-group">
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Reclutar</a></li>
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Editar
+											Perfil</a></li>
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Cambiar
+											Rol</a></li>
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Kick
+											Member</a></li>
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Eliminar
+											Equipo</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<ul class="list-group">
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Buscar
+											Reto</a></li>
+									<li class="list-group-item" onclick="javascript:reclutar()"><a>Ver
+											Retos</a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 
 		</div>
+
 
 		<div th:unless="${userHasTeam}">
 			<div>Aun no tienes un equipo activo. Crea o Postula a uno.</div>

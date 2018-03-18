@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.SignUp;
 import com.solommr.model.ClanDataResponse.Members;
+import com.solommr.model.Reclutar;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.UserInfo;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
@@ -117,5 +119,12 @@ public class UserTeamController extends BaseController{
 
 		model.addAttribute("userHasTeam", userHasTeam);
 		return "user/team/myTeam :: myTeam";
+	}
+
+	@RequestMapping(value = "/team/reclutarSearch", method = RequestMethod.POST)
+	public String reclutarSearch(HttpServletRequest req, Reclutar request, Model model) {
+		request.getEdad();
+		// ROL 1>Awper 2>Entry Fragger 3>Support 4>Lurker
+		return null;
 	}
 }

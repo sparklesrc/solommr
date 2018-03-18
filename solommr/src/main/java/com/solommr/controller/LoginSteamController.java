@@ -29,8 +29,8 @@ public class LoginSteamController extends BaseController{
 	private String solommr;
 
 	private String getFullUrl(HttpServletRequest request, String path) {
-		StringBuilder builder = new StringBuilder("localhost:8080/solommr");
-//		StringBuilder builder = new StringBuilder(solommr + "/solommr");
+//		StringBuilder builder = new StringBuilder("localhost:8080/solommr");
+		StringBuilder builder = new StringBuilder(solommr + "/solommr");
 		builder.insert(0, "http://");
 		builder.append(path);
 		return builder.toString();

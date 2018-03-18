@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>SoloMMR</title>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+
+		<div class="row" style="margin-top: 20px">
+			<div
+				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<fieldset>
+					<div>
+						<h3>Estas proximo a unirte a nuestra comunidad. Pero primero
+							debemos verificar que eres tu, para ello Solo necesitas ingresar
+							el PIN de validacion que en breve enviaremos a tu correo.</h3>
+					</div>
+					<form th:action="@{/validatePin}" method="post">
+						<fieldset>
+							<div class="form-group">
+								<input type="number" name="myPin" id="myPin"
+									class="form-control input-lg" placeholder="PIN" required="true"
+									autofocus="true" />
+							</div>
+
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<input type="submit" class="btn btn-lg btn-primary btn-block"
+										value="Confirmar" />
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6"></div>
+							</div>
+						</fieldset>
+					</form>
+
+				</fieldset>
+			</div>
+		</div>
+
+	</div>
+
+	<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

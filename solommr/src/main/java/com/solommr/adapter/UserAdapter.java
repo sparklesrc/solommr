@@ -38,26 +38,7 @@ public class UserAdapter extends BaseAdapter {
 		Map req_payload = new HashMap();
 		req_payload.put("mail", mail);
 
-		String response = "{\r\n" + 
-				"    \"userId\": 1,\r\n" + 
-				"    \"steamId\": \"777555444222\",\r\n" + 
-				"    \"mail\": \"fbramirezc@gmail.com\",\r\n" + 
-				"    \"password\": \"$2a$10$DPjIcQE4OCXIyETHEFsA4OgdZxKZpgtlysrG2IBDNQRPoYZh3EYI6\",\r\n" + 
-				"    \"rol\": \"USER\",\r\n" + 
-				"    \"userTeams\": [\r\n" + 
-				"        [\r\n" + 
-				"            1,\r\n" + 
-				"            1,\r\n" + 
-				"            1\r\n" + 
-				"        ],\r\n" + 
-				"        [\r\n" + 
-				"            1,\r\n" + 
-				"            2,\r\n" + 
-				"            2\r\n" + 
-				"        ]\r\n" + 
-				"    ],\r\n" + 
-				"    \"userSyncWithSteam\": true\r\n" + 
-				"}";
+		String response = this.doPostCall(req_payload, findByMail);
 
 		if (response.contains("Error")) {
 			return null;

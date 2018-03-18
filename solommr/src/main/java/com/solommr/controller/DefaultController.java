@@ -17,7 +17,7 @@ public class DefaultController extends BaseController {
 
 	@GetMapping("/home")
 	public String home(HttpServletRequest request) {
-		if (this.getCurrentUser(request) == null) {
+		if (this.getCurrentUser(request) != null) {
 			return "redirect:/user";
 		}
 		return "/home";
