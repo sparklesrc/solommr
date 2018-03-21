@@ -2,6 +2,7 @@ function hideAll() {
 	$("#userProfile").hide();
 	$("#verMyStats").hide();
 	$("#verEditProfile").hide();
+	$("#verMyGameProfile").hide();
 }
 
 $(document).ready(function() {
@@ -72,4 +73,19 @@ $("#criteria").on('change', function() {
 	if (selected == '0') {
 		hideAll();
 	}
+});
+
+$("#btnEditGameProfile").click(function() {
+	hideAll();
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+	$("#verMyGameProfile").show();
+});
+
+$(".checkbox-inline").click(function() {
+	var checkbox = document.querySelector('input[type="checkbox"]');
+	alert(checkbox.value);
 });

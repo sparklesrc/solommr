@@ -40,6 +40,10 @@
 				<div th:replace="/user/profile/editProfile :: editProfile"></div>
 			</div>
 
+			<div id="verMyGameProfile">
+				<div th:replace="/user/profile/myGameProfile :: myGameProfile"></div>
+			</div>
+
 			<form th:action="@{/logout}" method="post">
 				<div align="right"><input type="submit" value="Sign Out" /></div>
 			</form>

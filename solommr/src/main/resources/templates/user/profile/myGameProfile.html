@@ -1,0 +1,57 @@
+<div th:fragment="myGameProfile" id="idMyGameProfile">
+	<div class="row">
+		<div class="col-xs-9 col-md-9">
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					Distribucion actual:
+					<table>
+						<tr>
+							<td><label th:text="'% Awper'" /></td>
+							<td><input type="text" th:value="${rolAwp}"/></td>
+							<td><label th:text="'% Entry Fragger'" /></td>
+							<td><input type="text" th:value="${rolEntryFragger}"/></td>
+						</tr>
+						<tr>
+							<td><label th:text="'% Support'" /></td>
+							<td><input type="text" th:value="${rolSupport}"/></td>
+							<td><label th:text="'% Lurker'" /></td>
+							<td><input type="text" th:value="${rolLurker}"/></td>
+						</tr>
+						<tr>
+							<td><label th:text="'% Assault'" /></td>
+							<td><input type="text" th:value="${rolAssault}"/></td>
+						</tr>
+						<tr>
+							<td><input id="btnSaveProfile" type="submit" value="Guardar" /></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					Aqui van tus Roles...
+					<br></br>
+					<div class="form-group container-fluid">
+						<div class="col-lg-12">
+							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="1"/> Awper </label>
+							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="2"/> Entry Fragger </label>
+							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="3"/> Support </label>
+							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="4"/> Lurker </label>
+							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="5"/> Assault </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-3 col-md-3">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<ul class="list-group">
+						<li class="list-group-item" onclick="javascript:myRoles()"><a>Roles</a></li>
+						<li class="list-group-item" onclick="javascript:myAptitudes()"><a>Aptitudes</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
