@@ -10,22 +10,25 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1>P&aacute;gina de Perfil ! </h1>
 
-			<div class="container" style="width:auto;">
-				<div style="background-color: lightblue;">
-						<p align="center"> Juego
-						<select id="criteria">
-						    <option th:value="0" th:text="Seleccionar"></option>
-						    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
-						</select>
-						</p>
-				</div>
-				<div class="btn-group btn-group-justified">
-					<a id="btnMyStats" href="#" class="btn btn-primary">Mis Stats</a> 
-					<a id="btnEditProfile" href="#" class="btn btn-primary">Editar Perfil</a> 
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<div style="background-color: lightblue;">
+							<p align="center"> Juego
+							<select id="criteria">
+							    <option th:value="0" th:text="Seleccionar"></option>
+							    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
+							</select>
+							</p>
+					</div>
+					<div class="btn-group btn-group-justified">
+						<a id="btnMyStats" href="#" class="btn btn-primary">My Game Stats</a> 
+						<a id="btnEditProfile" href="#" class="btn btn-primary">Personal Profile</a>
+						<a id="btnEditGameProfile" href="#" class="btn btn-primary">Game Profile</a>  
+					</div>
 				</div>
 			</div>
+			
 
 			<br></br>
 
@@ -42,7 +45,6 @@
 			</form>
 
 		</div>
-
 	</div>
 	<!-- /.container -->
 	<div th:replace="/fragments/footer :: footer" />

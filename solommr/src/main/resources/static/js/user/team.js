@@ -93,12 +93,12 @@ $("#btnDoSearch").click(
 					criteria : teamName
 				},
 				success : function(data) {
-					$('#showSearchTeamResult').html(data);
+					$('#idTeamSearchResult').html(data);
 					hideAll();
 					$("#idMostrarResultado").show();
 				},
 				error : function(e) {
-					$('#showSearchTeamResult').html(
+					$('#idTeamSearchResult').html(
 							'No se encontraron coincidencias.');
 					hideAll();
 					$("#idMostrarResultado").show();
@@ -149,8 +149,7 @@ $("#criteria").on('change', function() {
 	}
 });
 
-function reclutar(){
-	alert('Reclutar');
+function reclutar(){	
 	$("#myTeamContent").hide();
 	$("#reclutar").show();
 }

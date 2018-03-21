@@ -85,7 +85,7 @@ public class UserTeamController extends BaseController{
 		String gameId = (String) request.getParameter("gameId");
 		UserInfo user = this.getCurrentUser(request);
 		boolean userHasTeam = false;
-		if (user == null && gameId == null) {
+		if (user == null || gameId == null) {
 			return "redirect:/login";
 		}
 		List<List<Integer>> mappedTeams = user.getUserTeams();

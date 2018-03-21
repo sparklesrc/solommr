@@ -14,24 +14,29 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<nav class="navbar navbar-inverse">
-				<div class="profile-header-img">
-	                <img src="/solommr/img/myTeam_logo.png" class="rounded float-left"/>
-	            </div>
-			</nav>
 
-			<div class="container" style="width:auto;">
-				<div style="background-color: lightblue;">
-						<p align="center"> Juego
-						<select id="criteria">
-						    <option th:value="0" th:text="Seleccionar"></option>
-						    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
-						</select>
-						</p>
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<nav class="navbar navbar-inverse">
+						<img src="/solommr/img/myTeam_logo.png" class="rounded float-left"/>
+					</nav>
 				</div>
-				<div class="btn-group btn-group-justified">
-					<a id="btnMyTeam" href="#" class="btn btn-primary">Mi Equipo</a>
-					<a id="btnSearchTeam" href="#" class="btn btn-primary">Buscar Equipo</a>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<div style="background-color: lightblue;">
+							<p align="center"> Juego
+							<select id="criteria">
+							    <option th:value="0" th:text="Seleccionar"></option>
+							    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
+							</select>
+							</p>
+					</div>
+					<div class="btn-group btn-group-justified">
+						<a id="btnMyTeam" href="#" class="btn btn-primary">Mi Equipo</a>
+						<a id="btnSearchTeam" href="#" class="btn btn-primary">Buscar Equipo</a>
+					</div>
 				</div>
 			</div>
 
@@ -59,7 +64,6 @@
 			<div id="teamProfile">
 				<div th:replace="/user/team/profile :: profile"></div>
 			</div>
-
 
 			<div id="myTeam">
 				<div th:replace="/user/team/myTeam :: myTeam"></div>
