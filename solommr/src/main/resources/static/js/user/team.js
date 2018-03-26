@@ -153,3 +153,40 @@ function reclutar(){
 	$("#myTeamContent").hide();
 	$("#reclutar").show();
 }
+
+function btnDoSearchRecruitment(){	
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+	var el = document.getElementById("pais");
+	var pais = el.options[el.selectedIndex].value;
+
+	var edad = $('#edad').val();
+	var nickName = $('#nickName').val();
+	var email = $('#email').val();
+	var rol = $('#rol').val();
+
+	$.ajax({
+		type : "POST",
+		url : "/solommr/user/team/reclutarSearch",
+		data : {
+			pais : pais,
+			edad : edad,
+			nickName : nickName,
+			email : email,
+			rol : null
+		},
+		success : function(data) {
+			$('#idReclutarResult').html(data);
+			$("#reclutarResult").show();
+		},
+		error : function(e) {
+			$('#idReclutarResult').html(
+					'No se encontraron coincidencias.');
+			hideAll();
+			$("#reclutarResult2").show();
+		}
+	});
+}

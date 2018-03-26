@@ -62,14 +62,19 @@
 								      </h4>
 								    </div>
 								    <div id="collapse1" class="panel-collapse collapse">
-								    	<form class="form-inline" th:action="@{/user/team/reclutarSearch}" method="post">
+								    	<form class="form-inline">
 											General:<br></br>
-											<input type="text" class="form-control" name="pais" id="inlineFormInputGroupUsername2" placeholder="Pais" />
-											<input type="number" class="form-control" name="edad" id="inlineFormInputGroupUsername2" placeholder="Edad Mayor a" />
+											<div class="form-group">
+											  <label for="pais">Pais:</label>
+											  <select class="form-control" id="pais" name="pais">
+												<option th:each="pais : ${paises}" th:value="${pais.codigo}" th:text="${pais.descripcion}">...</option>
+											  </select>
+											</div>
+											<input type="number" class="form-control" name="edad" id="edad" placeholder="Edad Mayor a" />
 											<br></br>
 											Especifica:<br></br>
-											<input type="text" class="form-control" name="nickName" id="inlineFormInputName2" placeholder="Nick Name / Id" />
-											<input type="text" class="form-control" name="email" id="inlineFormInputGroupUsername2" placeholder="Email" />
+											<input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name / Id" />
+											<input type="text" class="form-control" name="email" id="email" placeholder="Email" />
 											<br></br>
 											Roles:<br></br>
 											<div class="form-group container-fluid">
@@ -81,7 +86,7 @@
 													<label class="checkbox-inline"> <input type="checkbox" name="rol" value="5"/> Assault </label>
 												</div>
 											</div>
-											<button type="submit" class="btn btn-primary mb-2">Buscar</button>
+											<button class="btn btn-primary mb-2" onclick="javascript:btnDoSearchRecruitment()">Buscar</button>
 										</form>
 								    </div>
 								  </div>
@@ -89,8 +94,13 @@
 							</div>
 						</div>
 
+						
 						<div id="reclutarResult">
-							<div th:replace="/user/team/reclutarResult :: reclutarResult"></div>
+							<div class="row">
+								<div class="col-xs-12 col-md-12">
+									<div th:replace="/user/team/reclutarResult :: reclutarResult"></div>
+								</div>
+							</div>
 						</div>
 
 					</div>

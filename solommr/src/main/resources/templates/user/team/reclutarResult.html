@@ -1,28 +1,34 @@
-<div th:fragment="teamSearchResult" id="showSearchTeamResult">
+<div th:fragment="reclutarResult" id="idReclutarResult">
 
-	<div class="container" align="center">
-		<div th:if="${hasData}">
+	<div class="container" align="left">
+		<div class="row">
+			<div class="col-xs-9 col-md-9">
+					<div th:if="${hasData}">
 
-			<table border="1">
-				<tr>
-					<td colspan="5">Id de Equipo</td>
-					<td colspan="5">Nombre de Equipo</td>
-					<td colspan="5">Leader Actual</td>
-					<td>Team Profile</td>
-				</tr>
-				<th:block th:each="team : ${teams}">
-					<tr>
-						<td colspan="5" th:text="${team.id}">...</td>
-						<td colspan="5" th:text="${team.name}">...</td>
-						<td colspan="5" th:text="${team.leader}">...</td>
-						<td colspan="5" th:onclick="'javascript:getTeamProfile(\'' + ${team.id} + '\');'" align="center"><a>VER</a></td>
-					</tr>
-				</th:block>
-			</table>
-		</div>
-
-		<div th:unless="${hasData}">
-			<div class="alert alert-info">No se encontraron coincidencias.</div>
+					<table border="1">
+						<tr>
+							<td colspan="5">Nick de Jugador</td>
+							<td colspan="5">Mail de Jugador</td>
+							<td colspan="5">Edad</td>
+							<td colspan="5">Pais</td>
+							<td></td>
+						</tr>
+						<th:block th:each="player : ${players}">
+							<tr>
+								<td colspan="5" th:text="${player.nickName}">...</td>
+								<td colspan="5" th:text="${player.mail}">...</td>
+								<td colspan="5" th:text="${player.edad}">...</td>
+								<td colspan="5" th:text="${player.pais}">...</td>
+								<td colspan="5" th:onclick="'javascript:getPlayerProfile(\'' + ${player.id} + '\');'" align="center"><a>VER</a></td>
+							</tr>
+						</th:block>
+					</table>
+				</div>
+		
+				<div th:unless="${hasData}">
+					<div class="alert alert-info">No se encontraron coincidencias.</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
