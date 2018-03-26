@@ -11,15 +11,19 @@ import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.UserInfo;
 import com.solommr.service.UserService;
+import com.solommr.service.UtilService;
 
 @Controller
 public class SignUpController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UtilService utilService;
 
 	@GetMapping("/signup")
 	public String getSignup(HttpServletRequest request, Model model) {
+		model.addAttribute("paises", utilService.getCountries());
 		if (this.getCurrentUser(request) != null) {
 			return "/user/user";
 		}
