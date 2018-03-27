@@ -166,7 +166,13 @@ function btnDoSearchRecruitment(){
 	var edad = $('#edad').val();
 	var nickName = $('#nickName').val();
 	var email = $('#email').val();
-	var rol = $('#rol').val();
+	var rol = (function() {
+        var a = [];
+        $("#rol:checked").each(function() {
+            a.push(this.value);
+        });
+        return a;
+    });
 
 	$.ajax({
 		type : "POST",
@@ -176,7 +182,7 @@ function btnDoSearchRecruitment(){
 			edad : edad,
 			nickName : nickName,
 			email : email,
-			rol : null
+			rol : rol
 		},
 		success : function(data) {
 			$('#idReclutarResult').html(data);

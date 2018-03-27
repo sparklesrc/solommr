@@ -62,32 +62,75 @@
 								      </h4>
 								    </div>
 								    <div id="collapse1" class="panel-collapse collapse">
-								    	<form class="form-inline">
-											General:<br></br>
-											<div class="form-group">
-											  <label for="pais">Pais:</label>
-											  <select class="form-control" id="pais" name="pais">
-												<option th:each="pais : ${paises}" th:value="${pais.codigo}" th:text="${pais.descripcion}">...</option>
-											  </select>
-											</div>
-											<input type="number" class="form-control" name="edad" id="edad" placeholder="Edad Mayor a" />
-											<br></br>
-											Especifica:<br></br>
-											<input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name / Id" />
-											<input type="text" class="form-control" name="email" id="email" placeholder="Email" />
-											<br></br>
-											Roles:<br></br>
-											<div class="form-group container-fluid">
-												<div class="col-lg-12">
-													<label class="checkbox-inline"> <input type="checkbox" name="rol" value="1"/> Awper </label>
-													<label class="checkbox-inline"> <input type="checkbox" name="rol" value="2"/> Entry Fragger </label>
-													<label class="checkbox-inline"> <input type="checkbox" name="rol" value="3"/> Support </label>
-													<label class="checkbox-inline"> <input type="checkbox" name="rol" value="4"/> Lurker </label>
-													<label class="checkbox-inline"> <input type="checkbox" name="rol" value="5"/> Assault </label>
-												</div>
-											</div>
-											<button class="btn btn-primary mb-2" onclick="javascript:btnDoSearchRecruitment()">Buscar</button>
-										</form>
+								    	<div class="row">
+							    			<form class="form-inline">
+							    				<div class="col-xs-7 col-md-7">
+							    					<div class="row">
+							    						<div class="col-xs-6 col-md-6">
+							    							<label for="pais">Pais:</label>
+							    						</div>
+							    						<div class="col-xs-6 col-md-6">
+									    					<select class="form-control" id="pais" name="pais">
+																<option th:value="0">Seleccionar</option>
+																<option th:each="pais : ${paises}" th:value="${pais.codigo}" th:text="${pais.descripcion}">...</option>
+															</select>
+							    						</div>
+							    					</div>
+							    					<div class="row">
+							    						<div class="col-xs-6 col-md-6">
+							    							<label for="edad">Edad:</label>
+							    						</div>
+							    						<div class="col-xs-6 col-md-6">
+							    							<input type="number" class="form-control" name="edad" id="edad" placeholder="Edad Mayor a" />
+							    						</div>
+							    					</div>
+							    					<div class="row">
+							    						<div class="col-xs-6 col-md-6">
+							    							<label for="nickName">NickName:</label>
+							    						</div>
+							    						<div class="col-xs-6 col-md-6">
+							    							<input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name / Id" />
+							    						</div>
+							    					</div>
+							    					<div class="row">
+							    						<div class="col-xs-6 col-md-6">
+							    							<label for="email">Email:</label>
+							    						</div>
+							    						<div class="col-xs-6 col-md-6">
+							    							<input type="text" class="form-control" name="email" id="email" placeholder="Email" />
+							    						</div>
+							    					</div>
+							    					<div class="row">
+							    						<div class="col-xs-6 col-md-6">
+							    							<label for="pais">Jugador:</label>
+							    						</div>
+							    						<div class="col-xs-6 col-md-6">
+									    					<select class="form-control" id="pais" name="pais">
+																<option th:value="1">Disponible</option>
+																<option th:value="2">Todos</option>
+															</select>
+							    						</div>
+							    					</div>
+								    			</div>
+							    				<div class="col-xs-5 col-md-5">
+								    				<div class="row">
+								    					<div class="col-xs-12 col-md-12">
+								    						<div class="form-group container-fluid">
+																<div class="col-lg-12">
+																	<label>Roles:</label><br/>
+																	&nbsp; <label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="1"/> Awper </label>
+																	<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="2"/> Entry Fragger </label>
+																	<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="3"/> Support </label>
+																	<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="4"/> Lurker </label>
+																	<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="5"/> Assault </label>
+																</div>
+															</div>
+														</div>
+								    				</div>
+								    				<div align="right"><button class="btn btn-primary mb-2" onclick="javascript:btnDoSearchRecruitment()">Buscar</button></div>
+								    			</div>
+											</form>
+								    	</div>
 								    </div>
 								  </div>
 								</div>

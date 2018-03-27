@@ -129,7 +129,7 @@ public class UserTeamController extends BaseController{
 	@RequestMapping(value = "/team/reclutarSearch", method = RequestMethod.POST)
 	public String reclutarSearch(HttpServletRequest req, Reclutar request, Model model) {
 		request.getEdad();
-		// ROL 1>Awper 2>Entry Fragger 3>Support 4>Lurker
+		// ROL 1>Awper 2>Entry Fragger 3>Support 4>Lurker 5>Assault
 		List<ReclutarSearchResult> players = new ArrayList();
 		ReclutarSearchResult player = new ReclutarSearchResult();
 		player.setEdad(21);
