@@ -64,7 +64,7 @@ public class UserProfileController extends BaseController {
 //		model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
 		
 		// CSGO
-		if ("1".equals(gameId)) {
+		if ("1".equals(gameId) && currentUser.isUserSyncWithSteam()) {
 			SteamCSGOProfile steamCSGOProfile = userService.getSteamProfile(currentUser.getSteamId());
 			Map<String, Long> stats = converListToMap(steamCSGOProfile.getPlayerstats().getStats());
 			model.addAttribute("total_kills", stats.get("total_kills"));

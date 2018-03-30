@@ -177,6 +177,11 @@
 		</div>
 
 		<div th:unless="${userHasTeam}">
-			<div class="alert alert-info">Aun no tienes un equipo activo. Crea o Postula a uno.</div>
+			<div id="showMesage">
+				<div class="alert alert-info">Aun no tienes un equipo activo. <a href="javascript:btnBuildTeam();">Crea</a> o <a>Postula</a> a uno.</div>
+			</div>
+			<div id="buildTeam2">
+				<div th:replace="/user/team/build :: buildTeam"></div>
+			</div>
 		</div>
 </div>

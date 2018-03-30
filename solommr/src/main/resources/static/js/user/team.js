@@ -3,12 +3,12 @@ function hideAll(){
 	$("#dotaBox").hide();
 	$("#searchTeamBox").hide();
 	$("#searchTeamResult").hide();
-	$("#buildTeamBox").hide();
 	$("#idMostrarResultado").hide();
 	$("#teamProfile").hide();
 	$("#idMyTeam").hide();
 	$("#reclutar").hide();
 	$("#reclutarResult").hide();
+	$("#buildTeam2").hide();
 }
 
 $(document).ready(function() {
@@ -41,16 +41,6 @@ $("#btnMyTeam").click(function() {
 			$("#idMyTeam").show();
 		}
 	});
-});
-
-$("#btnBuildTeam").click(function() {
-	hideAll();
-	var selected = getGameSelected();
-	if (selected == '0') {
-		alert('Seleccionar Juego.');
-		return;
-	}
-	$("#buildTeamBox").show();
 });
 
 $("#btnDoBuildTeam").click(function() {
@@ -193,6 +183,28 @@ function btnDoSearchRecruitment(){
 					'No se encontraron coincidencias.');
 			hideAll();
 			$("#reclutarResult2").show();
+		}
+	});
+}
+
+function btnBuildTeam(){
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+	$.ajax({
+		type : "GET",
+		url : "/solommr/user/team/build",
+		data : {
+		},
+		success : function(data) {
+			$("#showMesage").hide();
+			$('#idBuildTeam').html(data);
+			$("#buildTeam2").show();
+		},
+		error : function(e) {
+			alert('error');
 		}
 	});
 }

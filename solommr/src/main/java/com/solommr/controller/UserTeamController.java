@@ -54,7 +54,6 @@ public class UserTeamController extends BaseController{
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.GET)
 	public String buildTeamGet(Model model) {
-		model.addAttribute("teams", null);
 		return "user/team/build :: buildTeam";
 	}
 
