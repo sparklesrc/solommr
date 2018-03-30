@@ -19,8 +19,15 @@ public class ClanServiceImpl implements ClanService {
 	}
 
 	@Override
-	public void buildTeam(BuildTeamReq request) {
-		clanAdapter.buildTeam();
+	public String buildTeam(BuildTeamReq request) {
+		try {
+//			String response = clanAdapter.buildTeam(request);
+//			if(response == null)
+				return "error";
+		} catch (Exception e) {
+			System.out.println("Error al crear equipo.");
+			return "error";
+		}
 	}
 
 }

@@ -57,29 +57,56 @@ public class TeamSearchReq {
 		private String shortName;
 		private String description;
 		private String country;
+
+		private Long gameId;
+		private Long userId;
+
+		public Long getGameId() {
+			return gameId;
+		}
+
+		public void setGameId(Long gameId) {
+			this.gameId = gameId;
+		}
+
+		public Long getUserId() {
+			return userId;
+		}
+
+		public void setUserId(Long userId) {
+			this.userId = userId;
+		}
+
 		public String getName() {
 			return name;
 		}
+
 		public void setName(String name) {
 			this.name = name;
 		}
+
 		public String getShortName() {
 			return shortName;
 		}
+
 		public void setShortName(String shortName) {
 			this.shortName = shortName;
 		}
+
 		public String getDescription() {
 			return description;
 		}
+
 		public void setDescription(String description) {
 			this.description = description;
 		}
+
 		public String getCountry() {
 			return country;
 		}
+
 		public void setCountry(String country) {
 			this.country = country;
-		}		
+		}
 	}
 }

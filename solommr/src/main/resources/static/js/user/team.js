@@ -222,7 +222,8 @@ function btnDoBuildTeam(){
 			name : name,
 			shortName : shortName,
 			description : description,
-			country : pais
+			country : pais,
+			gameId : selected
 		},
 		success : function(data) {
 		},

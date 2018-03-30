@@ -8,5 +8,5 @@ public interface ClanService {
 
 	ClanDataResponse searchTeam(TeamSearchReq request);
 
-	void buildTeam(BuildTeamReq request);
+	String buildTeam(BuildTeamReq request);
 }

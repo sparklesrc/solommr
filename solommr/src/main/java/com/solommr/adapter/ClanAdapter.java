@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.ClanDataResponse;
 import com.solommr.model.UserInfo;
+import com.solommr.model.TeamSearchReq.BuildTeamReq;
 
 @Component
 public class ClanAdapter extends BaseAdapter{
@@ -57,15 +58,15 @@ public class ClanAdapter extends BaseAdapter{
 		return obj;
 	}
 
-	public String buildTeam(){
+	public String buildTeam(BuildTeamReq request){
 		Map req_payload = new HashMap();
-		req_payload.put("gameId", null);
-		req_payload.put("userId", null);
-		req_payload.put("nombre", null);
-		req_payload.put("abreviatura", null);
-		req_payload.put("descripcion", null);
+		req_payload.put("gameId", request.getGameId());
+		req_payload.put("userId", request.getUserId());
+		req_payload.put("nombre", request.getName());
+		req_payload.put("abreviatura", request.getShortName());
+		req_payload.put("descripcion", request.getDescription());
 		req_payload.put("imgUrl", null);
-		req_payload.put("pais", null);
+		req_payload.put("pais", request.getCountry());
 
 		String response = this.doPostCall(req_payload, buildTeam);
 

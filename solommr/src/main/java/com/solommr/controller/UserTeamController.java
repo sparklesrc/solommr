@@ -21,6 +21,7 @@ import com.solommr.model.TeamSearchReq.BuildTeamReq;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
 import com.solommr.service.ClanService;
 import com.solommr.service.GameService;
+import com.solommr.service.UserService;
 import com.solommr.service.UtilService;
 
 @Controller
@@ -33,6 +34,8 @@ public class UserTeamController extends BaseController{
 	private GameService gameService;
 	@Autowired
 	private UtilService utilService;
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/team")
 	public String index(Model model) {
@@ -49,9 +52,15 @@ public class UserTeamController extends BaseController{
 	}
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.POST)
-	public @ResponseBody ClanDataResponse buildTeamPost(BuildTeamReq request) {
-		request.getCountry();
-		return null;
+	public String buildTeamPost(HttpServletRequest req, BuildTeamReq request, Model model) {
+		UserInfo user = this.getCurrentUser(req);
+		request.setUserId(user.getUserId());
+		String resp = clanService.buildTeam(request);
+		if (resp != null && !"error".equals(resp)) {
+			UserInfo usuario = userService.getUserByMail(user.getMail());
+			req.getSession().setAttribute("SESSION_USUARIO", usuario);
+		}
+		return "redirect:/user/team/myTeam?gameId="+request.getGameId();
 	}
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.GET)
