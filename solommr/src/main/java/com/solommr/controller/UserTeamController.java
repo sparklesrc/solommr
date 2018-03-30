@@ -17,6 +17,7 @@ import com.solommr.model.Reclutar;
 import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.UserInfo;
+import com.solommr.model.TeamSearchReq.BuildTeamReq;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
 import com.solommr.service.ClanService;
 import com.solommr.service.GameService;
@@ -48,12 +49,14 @@ public class UserTeamController extends BaseController{
 	}
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.POST)
-	public @ResponseBody ClanDataResponse buildTeamPost() {
+	public @ResponseBody ClanDataResponse buildTeamPost(BuildTeamReq request) {
+		request.getCountry();
 		return null;
 	}
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.GET)
 	public String buildTeamGet(Model model) {
+		model.addAttribute("paises", utilService.getCountries());
 		return "user/team/build :: buildTeam";
 	}
 

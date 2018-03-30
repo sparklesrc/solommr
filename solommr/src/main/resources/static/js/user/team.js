@@ -43,11 +43,6 @@ $("#btnMyTeam").click(function() {
 	});
 });
 
-$("#btnDoBuildTeam").click(function() {
-	alert('Aun Estamos construyendo esta funcionalidad.');
-	return;
-});
-
 $("#btnSearchTeam").click(function() {
 	hideAll();
 	var selected = getGameSelected();
@@ -205,6 +200,33 @@ function btnBuildTeam(){
 		},
 		error : function(e) {
 			alert('error');
+		}
+	});
+}
+
+function btnDoBuildTeam(){
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+	var name = $('#name').val();
+	var shortName = $('#shortName').val();
+	var description = $('#description').val();
+	var el = document.getElementById("pais");
+	var pais = el.options[el.selectedIndex].value;
+	$.ajax({
+		type : "POST",
+		url : "/solommr/user/team/build",
+		data : {
+			name : name,
+			shortName : shortName,
+			description : description,
+			country : pais
+		},
+		success : function(data) {
+		},
+		error : function(e) {
 		}
 	});
 }

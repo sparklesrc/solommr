@@ -16,15 +16,19 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.UserInfo;
 
 @Component
-public class ClanAdapter {
+public class ClanAdapter extends BaseAdapter{
 
 	@Autowired
 	private RestTemplate restTemplate;
 
 //	@Value("${projectrc.url.team.search}")
 	private String teamSearch;
+
+	@Value("${steam.url.buildTeam}")
+	private String buildTeam;
 
 	public ClanDataResponse getClanData(Long gameId, String criteria) {
 		String uri = "http://projectrc-pj-solo-mmr.7e14.starter-us-west-2.openshiftapps.com/projectrc/rest/team/search";
@@ -51,5 +55,30 @@ public class ClanAdapter {
 			System.out.println("ERROR EN MAPPING " + criteria);
 		}
 		return obj;
+	}
+
+	public String buildTeam(){
+		Map req_payload = new HashMap();
+		req_payload.put("gameId", null);
+		req_payload.put("userId", null);
+		req_payload.put("nombre", null);
+		req_payload.put("abreviatura", null);
+		req_payload.put("descripcion", null);
+		req_payload.put("imgUrl", null);
+		req_payload.put("pais", null);
+
+		String response = this.doPostCall(req_payload, buildTeam);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, String.class);
+		} catch (Exception e) {
+			System.out.println("Error en Mapping Response - Build Team");
+			return null;
+		}		
 	}
 }
