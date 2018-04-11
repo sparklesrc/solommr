@@ -1,5 +1,6 @@
 package com.solommr.service;
 
+import com.solommr.model.GenericResponse;
 import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
@@ -16,7 +17,7 @@ public interface UserService {
 
 	SteamPlayerSummarie getSteamPlayerSummarie(String steamId);
 
-	void signUp(SignUp request);
+	GenericResponse signUp(SignUp request);
 
 	UserInfo confirmPin(Pin request);
 }

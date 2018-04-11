@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.solommr.model.GenericResponse;
+import com.solommr.model.GenericResponse.SignUpRequest;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
@@ -33,6 +35,9 @@ public class UserAdapter extends BaseAdapter {
 
 	@Value("${steam.url.profile}")
 	private String playerSummarie;
+
+	@Value("${projectrc.url.user.signUp}")
+	private String signUp;
 
 	public UserInfo getUserInfoByMail(String mail) {
 		Map req_payload = new HashMap();
@@ -99,6 +104,29 @@ public class UserAdapter extends BaseAdapter {
 			return mapper.readValue(result, SteamPlayerSummarie.class);
 		} catch (Exception e) {
 			System.out.println("Error en Mapping obtener CSGO Steam Profile ");
+			return null;
+		}
+	}
+
+	public GenericResponse signUp(SignUpRequest request) {
+		Map req_payload = new HashMap();
+		req_payload.put("email", request.getEmail());
+		req_payload.put("password", request.getPassword());
+		req_payload.put("edad", request.getEdad());
+		req_payload.put("pais", request.getPais());
+		req_payload.put("gameProfile", request.getGameProfile());
+
+		String response = this.doPostCall(req_payload, signUp);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, GenericResponse.class);
+		} catch (Exception e) {
+			System.out.println("Error al crear usuario " + request.getEmail());
 			return null;
 		}
 	}

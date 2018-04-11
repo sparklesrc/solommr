@@ -1,8 +1,11 @@
 package com.solommr.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.solommr.adapter.UserAdapter;
+import com.solommr.model.GenericResponse;
+import com.solommr.model.GenericResponse.SignUpRequest;
 import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
@@ -37,7 +40,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void signUp(SignUp request) {
+	public GenericResponse signUp(SignUp request) {
+		return userAdapter.signUp(getSignUpRequest(request));
 	}
 
 	@Override
@@ -45,4 +49,16 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	private SignUpRequest getSignUpRequest(SignUp request) {
+		if (request != null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			SignUpRequest signUpRequest = new SignUpRequest();
+			signUpRequest.setEdad(request.getEdad());
+			signUpRequest.setEmail(request.getEmail());
+			signUpRequest.setPais(request.getPais());
+			signUpRequest.setPassword(passwordEncoder.encode(request.getPassword()));
+			return signUpRequest;
+		}
+		return null;
+	}
 }

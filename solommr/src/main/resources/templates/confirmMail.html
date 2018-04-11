@@ -14,28 +14,43 @@
 			<div
 				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 				<fieldset>
-					<div>
-						<h3>Estas proximo a unirte a nuestra comunidad. Pero primero
-							debemos verificar que eres tu, para ello Solo necesitas ingresar
-							el PIN de validacion que en breve enviaremos a tu correo.</h3>
+					<!-- user exists , user created , error -->
+					<div th:if="${msg} == user exists">
+						<h3>El Correo Utilizado Ya existe.</h3>
 					</div>
-					<form th:action="@{/validatePin}" method="post">
-						<fieldset>
-							<div class="form-group">
-								<input type="number" name="myPin" id="myPin"
-									class="form-control input-lg" placeholder="PIN" required="true"
-									autofocus="true" />
-							</div>
 
-							<div class="row">
-								<div class="col-xs-6 col-sm-6 col-md-6">
-									<input type="submit" class="btn btn-lg btn-primary btn-block"
-										value="Confirmar" />
+					<div th:if="${msg} == error">
+						<h3>Al parecer hubo un error, vuelve a intentar.</h3>
+					</div>
+					
+					<div th:if="${msg} == user created">
+					
+						<div>
+							<h3>Estas proximo a unirte a nuestra comunidad. Pero primero
+								debemos verificar que eres tu, para ello Solo necesitas ingresar
+								el PIN de validacion que en breve enviaremos a tu correo.</h3>
+						</div>
+						<form th:action="@{/validatePin}" method="post">
+							<fieldset>
+								<div class="form-group">
+									<input type="number" name="myPin" id="myPin"
+										class="form-control input-lg" placeholder="PIN" required="true"
+										autofocus="true" />
 								</div>
-								<div class="col-xs-6 col-sm-6 col-md-6"></div>
-							</div>
-						</fieldset>
-					</form>
+	
+								<div class="row">
+									<div class="col-xs-6 col-sm-6 col-md-6">
+										<input type="submit" class="btn btn-lg btn-primary btn-block"
+											value="Confirmar" />
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6">
+										<a id="btnReSendCode" href="#" class="btn btn-primary">Reenviar Codigo</a> 
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					
+					</div>
 
 				</fieldset>
 			</div>
@@ -45,5 +60,10 @@
 
 	<div th:replace="fragments/footer :: footer" />
 
+<script>
+$("#btnReSendCode").click(function() {
+	alert('reenviar');
+});
+</script>
 </body>
 </html>

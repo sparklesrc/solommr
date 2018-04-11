@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.solommr.model.GenericResponse;
 import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.UserInfo;
@@ -32,7 +34,12 @@ public class SignUpController extends BaseController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String postSignup(HttpServletRequest req, SignUp request, Model model) {
-		userService.signUp(request);
+		GenericResponse response = userService.signUp(request);
+		String msg = "error";
+		if (response != null) {
+			msg = response.getMsg();
+		}
+		model.addAttribute("msg", msg);
 		return "/confirmMail";
 	}
 
