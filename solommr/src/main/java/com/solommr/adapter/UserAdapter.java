@@ -11,6 +11,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.GenericResponse;
 import com.solommr.model.GenericResponse.SignUpRequest;
+import com.solommr.model.SignUp.BasicRequest;
+import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
@@ -38,6 +40,12 @@ public class UserAdapter extends BaseAdapter {
 
 	@Value("${projectrc.url.user.signUp}")
 	private String signUp;
+
+	@Value("${projectrc.url.user.resendCode}")
+	private String resendCode;
+
+	@Value("${projectrc.url.user.verifyCode}")
+	private String verifyCode;
 
 	public UserInfo getUserInfoByMail(String mail) {
 		Map req_payload = new HashMap();
@@ -117,6 +125,46 @@ public class UserAdapter extends BaseAdapter {
 		req_payload.put("gameProfile", request.getGameProfile());
 
 		String response = this.doPostCall(req_payload, signUp);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, GenericResponse.class);
+		} catch (Exception e) {
+			System.out.println("Error al crear usuario " + request.getEmail());
+			return null;
+		}
+	}
+
+	public GenericResponse reSendCode(BasicRequest request) {
+		Map req_payload = new HashMap();
+		req_payload.put("mail", request.getMail());
+		req_payload.put("code", null);
+
+		String response = this.doPostCall(req_payload, resendCode);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, GenericResponse.class);
+		} catch (Exception e) {
+			System.out.println("Error al crear usuario " + request.getMail());
+			return null;
+		}
+	}
+
+	public GenericResponse verifyCode(Pin request) {
+		Map req_payload = new HashMap();
+		req_payload.put("mail", request.getEmail());
+		req_payload.put("code", request.getMyPin());
+
+		String response = this.doPostCall(req_payload, resendCode);
 
 		if (response.contains("Error")) {
 			return null;

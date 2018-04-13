@@ -15,15 +15,15 @@
 				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 				<fieldset>
 					<!-- user exists , user created , error -->
-					<div th:if="${msg} == user exists">
+					<div th:if="${msg} == 'user exists'">
 						<h3>El Correo Utilizado Ya existe.</h3>
 					</div>
 
-					<div th:if="${msg} == error">
+					<div th:if="${msg} == 'error'">
 						<h3>Al parecer hubo un error, vuelve a intentar.</h3>
 					</div>
 					
-					<div th:if="${msg} == user created">
+					<div th:if="${msg} == 'user created'">
 					
 						<div>
 							<h3>Estas proximo a unirte a nuestra comunidad. Pero primero
@@ -37,6 +37,8 @@
 										class="form-control input-lg" placeholder="PIN" required="true"
 										autofocus="true" />
 								</div>
+
+								<input id="email" type="hidden" th:value="${email}" name="email"/>
 	
 								<div class="row">
 									<div class="col-xs-6 col-sm-6 col-md-6">
@@ -51,8 +53,10 @@
 						</form>
 					
 					</div>
-
+				<input id="email" type="hidden" th:value="${email}" name="email"/>
 				</fieldset>
+				<div id="msgConfirmResend"><h4><font color="red">Codigo reenviado</font></h4></div>
+				<div id="msgErrorResend"><h4><font color="red">Hubo un error al reenviar el codigo</font></h4></div>
 			</div>
 		</div>
 
@@ -61,8 +65,27 @@
 	<div th:replace="fragments/footer :: footer" />
 
 <script>
+$(document).ready(function() {
+	$("#msgConfirmResend").hide();
+	$("#msgErrorResend").hide();
+});
+
 $("#btnReSendCode").click(function() {
-	alert('reenviar');
+	var mail = document.getElementById("email").value;
+	$.ajax({
+		type : "POST",
+		url : "/solommr/resendCode",
+		data : {
+			mail : mail
+		},
+		success : function(data) {
+			alert(data);
+			$("#msgConfirmResend").show();
+		},
+		error : function(e) {
+			$("#msgErrorResend").show();
+		}
+	});
 });
 </script>
 </body>

@@ -59,6 +59,7 @@ public class SignUp {
 
 	public static class Pin {
 		private Integer myPin;
+		private String email;
 
 		public Integer getMyPin() {
 			return myPin;
@@ -66,6 +67,14 @@ public class SignUp {
 
 		public void setMyPin(Integer myPin) {
 			this.myPin = myPin;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
 		}
 
 	}
@@ -88,6 +97,18 @@ public class SignUp {
 
 		public void setDescripcion(String descripcion) {
 			this.descripcion = descripcion;
+		}
+	}
+
+	public static class BasicRequest {
+		private String mail;
+
+		public String getMail() {
+			return mail;
+		}
+
+		public void setMail(String mail) {
+			this.mail = mail;
 		}
 
 	}

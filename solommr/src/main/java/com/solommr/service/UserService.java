@@ -2,6 +2,7 @@ package com.solommr.service;
 
 import com.solommr.model.GenericResponse;
 import com.solommr.model.SignUp;
+import com.solommr.model.SignUp.BasicRequest;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
@@ -20,4 +21,8 @@ public interface UserService {
 	GenericResponse signUp(SignUp request);
 
 	UserInfo confirmPin(Pin request);
+
+	GenericResponse reSendCode(BasicRequest request);
+
+	GenericResponse verifyCode(Pin request);
 }

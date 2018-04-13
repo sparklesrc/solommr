@@ -7,6 +7,7 @@ import com.solommr.adapter.UserAdapter;
 import com.solommr.model.GenericResponse;
 import com.solommr.model.GenericResponse.SignUpRequest;
 import com.solommr.model.SignUp;
+import com.solommr.model.SignUp.BasicRequest;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
@@ -60,5 +61,15 @@ public class UserServiceImpl implements UserService {
 			return signUpRequest;
 		}
 		return null;
+	}
+
+	@Override
+	public GenericResponse reSendCode(BasicRequest request) {
+		return userAdapter.reSendCode(request);
+	}
+
+	@Override
+	public GenericResponse verifyCode(Pin request) {
+		return userAdapter.verifyCode(request);
 	}
 }
