@@ -16,7 +16,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.Game;
+import com.solommr.model.Reclutar;
 import com.solommr.model.UserInfo;
+import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
 
 @Component
@@ -30,6 +33,9 @@ public class ClanAdapter extends BaseAdapter{
 
 	@Value("${steam.url.buildTeam}")
 	private String buildTeam;
+
+	@Value("${projectrc.url.team.searchUsersByCriteria}")
+	private String searchUsersByCriteria;
 
 	public ClanDataResponse getClanData(Long gameId, String criteria) {
 		String uri = "http://projectrc-pj-solo-mmr.7e14.starter-us-west-2.openshiftapps.com/projectrc/rest/team/search";
@@ -81,5 +87,30 @@ public class ClanAdapter extends BaseAdapter{
 			System.out.println("Error en Mapping Response - Build Team");
 			return null;
 		}		
+	}
+
+	public ReclutarSearchResult[] searchUsersByCriteria(Reclutar request) {
+		Map req_payload = new HashMap();
+		req_payload.put("gameId", request.getGameId());
+		req_payload.put("nickName", request.getNickName());
+		req_payload.put("email", request.getEmail());
+		req_payload.put("edad", request.getEdad());
+		req_payload.put("estado", request.getEstado());
+		req_payload.put("pais", request.getPais());
+		req_payload.put("rol", request.getRol());
+
+		String response = this.doPostCall(req_payload, searchUsersByCriteria);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, ReclutarSearchResult[].class);
+		} catch (Exception e) {
+			System.out.println("Error en Search Users by Criteria...");
+			return null;
+		}
 	}
 }

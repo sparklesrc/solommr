@@ -159,6 +159,9 @@ function btnDoSearchRecruitment(){
         return a;
     });
 
+	var e = document.getElementById("estado");
+	var estado = e.options[e.selectedIndex].value;
+
 	$.ajax({
 		type : "POST",
 		url : "/solommr/user/team/reclutarSearch",
@@ -167,7 +170,9 @@ function btnDoSearchRecruitment(){
 			edad : edad,
 			nickName : nickName,
 			email : email,
-			rol : rol
+			rol : rol,
+			estado : estado,
+			gameId : selected
 		},
 		success : function(data) {
 			$('#idReclutarResult').html(data);

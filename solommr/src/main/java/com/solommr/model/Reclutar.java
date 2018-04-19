@@ -2,11 +2,13 @@ package com.solommr.model;
 
 public class Reclutar {
 
+	private Integer gameId;
 	private String nickName;
 	private String email;
 	private Integer edad;
 	private String pais;
 	private String[] rol;
+	private Integer estado;
 
 	public String getNickName() {
 		return nickName;
@@ -48,6 +50,22 @@ public class Reclutar {
 		this.rol = rol;
 	}
 
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
+
+	public Integer getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(Integer gameId) {
+		this.gameId = gameId;
+	}
+
 	public static class ReclutarSearchResult {
 		private Integer id;
 		private String nickName;
@@ -55,6 +73,7 @@ public class Reclutar {
 		private Integer edad;
 		private String pais;
 		private String roles;
+		private Integer gameId;
 
 		public Integer getId() {
 			return id;
@@ -102,6 +121,14 @@ public class Reclutar {
 
 		public void setRoles(String roles) {
 			this.roles = roles;
+		}
+
+		public Integer getGameId() {
+			return gameId;
+		}
+
+		public void setGameId(Integer gameId) {
+			this.gameId = gameId;
 		}
 
 	}

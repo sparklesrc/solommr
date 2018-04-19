@@ -139,30 +139,29 @@ public class UserTeamController extends BaseController{
 
 	@RequestMapping(value = "/team/reclutarSearch", method = RequestMethod.POST)
 	public String reclutarSearch(HttpServletRequest req, Reclutar request, Model model) {
-		request.getEdad();
+		// Fix Request
+		if ("".equals(request.getNickName())) {
+			request.setNickName(null);
+		}
+		if (request.getRol().length == 0) {
+			request.setRol(null);
+		}
+		if ("".equals(request.getEmail())) {
+			request.setEmail(null);
+		}
+		List<ReclutarSearchResult> players = null;
+		boolean hasData = false;
+		try {
+			players = clanService.searchUsersByCriteria(request);
+			if (players != null && !players.isEmpty()) {
+				hasData = true;
+				model.addAttribute("players", players);
+			}
+		} catch (Exception e) {
+		}
 		// ROL 1>Awper 2>Entry Fragger 3>Support 4>Lurker 5>Assault
-		List<ReclutarSearchResult> players = new ArrayList();
-		ReclutarSearchResult player = new ReclutarSearchResult();
-		player.setEdad(21);
-		player.setId(5);
-		player.setMail("myMail@gmail.com");
-		player.setNickName("myNickName");
-		player.setPais("PE");
-		player.setRoles("Awp, Support");
-
-		ReclutarSearchResult player2 = new ReclutarSearchResult();
-		player2.setEdad(21);
-		player2.setId(5);
-		player2.setMail("myMail@gmail.com");
-		player2.setNickName("myNickName");
-		player2.setPais("PE");
-		player2.setRoles("Awp, Support");
-		
-		players.add(player);
-		players.add(player2);
-		
-		model.addAttribute("players", players);
-		model.addAttribute("hasData", true);
+		// ESTADO 1>Sin Clan 2>Con Clan
+		model.addAttribute("hasData", hasData);
 		return "user/team/reclutarResult :: reclutarResult";
 	}
 }
