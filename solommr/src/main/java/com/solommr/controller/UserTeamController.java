@@ -140,6 +140,9 @@ public class UserTeamController extends BaseController{
 	@RequestMapping(value = "/team/reclutarSearch", method = RequestMethod.POST)
 	public String reclutarSearch(HttpServletRequest req, Reclutar request, Model model) {
 		// Fix Request
+		if("0".equals(request.getPais())) {
+			request.setPais(null);
+		}
 		if ("".equals(request.getNickName())) {
 			request.setNickName(null);
 		}

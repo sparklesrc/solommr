@@ -12,6 +12,8 @@
 							<td colspan="5">Edad</td>
 							<td colspan="5">Pais</td>
 							<td colspan="5">Roles</td>
+							<td colspan="5">Clan Actual</td>
+							<td colspan="5">Tipo de Miembro</td>
 							<td></td>
 						</tr>
 						<th:block th:each="player : ${players}">
@@ -21,6 +23,8 @@
 								<td colspan="5" th:text="${player.edad}">...</td>
 								<td colspan="5" th:text="${player.pais}">...</td>
 								<td colspan="5" th:text="${player.roles}">...</td>
+								<td colspan="5" th:text="${player.clan}">...</td>
+								<td colspan="5" th:text="${player.memberType}">...</td>
 								<td colspan="5" th:onclick="'javascript:getPlayerProfile(\'' + ${player.id} + '\');'" align="center"><a>VER</a></td>
 							</tr>
 						</th:block>
