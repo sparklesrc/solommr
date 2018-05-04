@@ -13,6 +13,7 @@ import com.solommr.model.GenericResponse;
 import com.solommr.model.GenericResponse.SignUpRequest;
 import com.solommr.model.SignUp.BasicRequest;
 import com.solommr.model.SignUp.Pin;
+import com.solommr.model.UserInfo.UserGameProfile;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
@@ -47,13 +48,19 @@ public class UserAdapter extends BaseAdapter {
 	@Value("${projectrc.url.user.verifyCode}")
 	private String verifyCode;
 
+	@Value("${projectrc.url.user.gameProfile}")
+	private String userGameProfile;
+
+	@Value("${projectrc.url.user.updateGameProfile}")
+	private String updateGameProfile;
+
 	public UserInfo getUserInfoByMail(String mail) {
 		Map req_payload = new HashMap();
 		req_payload.put("mail", mail);
 
 		String response = this.doPostCall(req_payload, findByMail);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("Error")) {
 			return null;
 		}
 
@@ -88,7 +95,7 @@ public class UserAdapter extends BaseAdapter {
 
 		String response = this.doPostCall(req_payload, syncSteamUser);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("Error")) {
 			return null;
 		}
 
@@ -126,7 +133,7 @@ public class UserAdapter extends BaseAdapter {
 
 		String response = this.doPostCall(req_payload, signUp);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("Error")) {
 			return null;
 		}
 
@@ -146,7 +153,7 @@ public class UserAdapter extends BaseAdapter {
 
 		String response = this.doPostCall(req_payload, resendCode);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("Error")) {
 			return null;
 		}
 
@@ -166,7 +173,7 @@ public class UserAdapter extends BaseAdapter {
 
 		String response = this.doPostCall(req_payload, resendCode);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("Error")) {
 			return null;
 		}
 
@@ -175,6 +182,50 @@ public class UserAdapter extends BaseAdapter {
 			return mapper.readValue(response, GenericResponse.class);
 		} catch (Exception e) {
 			System.out.println("Error al crear usuario " + request.getEmail());
+			return null;
+		}
+	}
+
+	public UserGameProfile getUserGameProfile(Long userId, Long gameId) {
+		Map req_payload = new HashMap();
+		req_payload.put("userId", userId);
+		req_payload.put("gameId", gameId);
+
+		String response = this.doPostCall(req_payload, userGameProfile);
+
+		if (response == null || response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, UserGameProfile.class);
+		} catch (Exception e) {
+			System.out.println("Error al obtener Game Profile de usuario con Id " + userId);
+			return null;
+		}
+	}
+
+	public GenericResponse updateGameProfile(UserGameProfile request) {
+		Map req_payload = new HashMap();
+		req_payload.put("gameId", request.getGameId());
+		req_payload.put("nickname", request.getNickname());
+		req_payload.put("celular", request.getCelular());
+		req_payload.put("description", request.getDescription());
+		req_payload.put("roles", request.getRoles());
+		req_payload.put("userId", request.getUserId());
+
+		String response = this.doPostCall(req_payload, updateGameProfile);
+
+		if (response == null || response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, GenericResponse.class);
+		} catch (Exception e) {
+			System.out.println("Error al actualizar game Profile para usuario " + request.getUserId());
 			return null;
 		}
 	}

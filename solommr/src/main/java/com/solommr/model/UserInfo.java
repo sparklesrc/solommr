@@ -11,6 +11,24 @@ public class UserInfo {
 	private String rol;
 	private boolean isUserSyncWithSteam;
 	private List<List<Integer>> userTeams;
+	private String pais;
+	private Integer edad;
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
 
 	public String getSteamId() {
 		return steamId;
@@ -98,4 +116,63 @@ public class UserInfo {
 		}
 
 	}
+
+	public static class UserGameProfile {
+		private Integer gameId;
+		private String nickname;
+		private String celular;
+		private String description;
+		private String[] roles;
+		private Long userId;
+
+		public Long getUserId() {
+			return userId;
+		}
+
+		public void setUserId(Long userId) {
+			this.userId = userId;
+		}
+
+		public Integer getGameId() {
+			return gameId;
+		}
+
+		public void setGameId(Integer gameId) {
+			this.gameId = gameId;
+		}
+
+		public String getNickname() {
+			return nickname;
+		}
+
+		public void setNickname(String nickname) {
+			this.nickname = nickname;
+		}
+
+		public String getCelular() {
+			return celular;
+		}
+
+		public void setCelular(String celular) {
+			this.celular = celular;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public String[] getRoles() {
+			return roles;
+		}
+
+		public void setRoles(String[] roles) {
+			this.roles = roles;
+		}
+
+	}
+
 }

@@ -11,13 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.solommr.model.ClanDataResponse;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamCSGOProfile.Stats;
+import com.solommr.model.UserInfo.UserGameProfile;
 import com.solommr.model.SteamPlayerSummarie;
+import com.solommr.model.TeamSearchReq;
 import com.solommr.model.UserInfo;
 import com.solommr.service.GameService;
 import com.solommr.service.UserService;
+import com.solommr.service.UtilService;
+import com.solommr.util.EnumPais;
 
 @Controller
 @RequestMapping("/user/profile")
@@ -27,6 +33,8 @@ public class UserProfileController extends BaseController {
 	private UserService userService;
 	@Autowired
 	private GameService gameService;
+	@Autowired
+	private UtilService utilService;
 
 	@GetMapping
 	public String getSteamProfile(HttpServletRequest request, Model model) {
@@ -46,7 +54,81 @@ public class UserProfileController extends BaseController {
 			return "redirect:/login";
 		}
 		model.addAttribute("mail", currentUser.getMail());
+		model.addAttribute("pais", utilService.getPaisByCode(currentUser.getPais()));
+		model.addAttribute("edad", currentUser.getEdad());
+		String steamId = "Cuenta no Sincronizada.";
+		if (currentUser.getSteamId() != null && !"".equals(currentUser.getSteamId())) {
+			steamId = currentUser.getSteamId();
+		}
+		model.addAttribute("steamId", steamId);
 		return "/user/profile/editProfile :: editProfile";
+	}
+
+	@GetMapping("/editMyGameProfile")
+	public String getEditMyGameProfile(HttpServletRequest request, Model model) {
+		String gameId = (String) request.getParameter("gameId");
+		UserInfo currentUser = this.getCurrentUser(request);
+		if (currentUser == null) {
+			return "redirect:/login";
+		}
+		UserGameProfile userGameProfile = userService.getUserGameProfile(currentUser.getUserId(), new Integer(gameId));
+		if (userGameProfile != null) {
+			model.addAttribute("nickName", userGameProfile.getNickname());
+			model.addAttribute("celular", userGameProfile.getCelular());
+			model.addAttribute("description", userGameProfile.getDescription());
+			model.addAllAttributes(getRolesForProfile(userGameProfile.getRoles()));
+		}
+		return "/user/profile/myGameProfile :: myGameProfile";
+	}
+
+	private Map getRolesForProfile(String... roles) {
+		Map<String, Object> mapRoles = new HashMap<String, Object>();
+		boolean isAwper = false;
+		boolean isEntryFragger = false;
+		boolean isSupport = false;
+		boolean isLurker = false;
+		boolean isAssault = false;
+		for (String rol : roles) {
+			Integer code = Integer.parseInt(""+rol.charAt(0));
+			switch (code) {
+			case 1:
+				isAwper = true;
+				break;
+			case 2:
+				isEntryFragger = true;
+				break;
+			case 3:
+				isSupport = true;
+				break;
+			case 4:
+				isLurker = true;
+				break;
+			case 5:
+				isAssault = true;
+				break;
+
+			default:
+				break;
+			}
+		}
+		mapRoles.put("isAwper", isAwper);
+		mapRoles.put("isEntryFragger", isEntryFragger);
+		mapRoles.put("isSupport", isSupport);
+		mapRoles.put("isLurker", isLurker);
+		mapRoles.put("isAssault", isAssault);
+		return mapRoles;
+	}
+
+	@RequestMapping(value = "/updateGameProfile", method = RequestMethod.POST)
+	public String editMyGameProfile(HttpServletRequest req, UserGameProfile request, Model model) {
+		//update Game Profile
+		UserInfo currentUser = this.getCurrentUser(req);
+		if (currentUser == null) {
+			return "redirect:/login";
+		}
+		request.setUserId(currentUser.getUserId());
+		userService.updateUserGameProfile(request);
+		return "/user/profile/myGameProfile :: myGameProfile";
 	}
 
 	@GetMapping("/view")

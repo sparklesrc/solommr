@@ -8,6 +8,15 @@ public class SignUp {
 	private String nickName;
 	private Integer edad;
 	private String pais;
+	private Integer game;
+
+	public Integer getGame() {
+		return game;
+	}
+
+	public void setGame(Integer game) {
+		this.game = game;
+	}
 
 	public String getEmail() {
 		return email;

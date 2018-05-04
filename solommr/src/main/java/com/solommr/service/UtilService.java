@@ -9,4 +9,6 @@ public interface UtilService {
 	List<Country> getCountries();
 
 	List<String> getRolesByCode(String... roles);
+
+	String getPaisByCode(String code);
 }

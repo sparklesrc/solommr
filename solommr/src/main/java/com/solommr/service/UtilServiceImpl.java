@@ -41,4 +41,13 @@ public class UtilServiceImpl implements UtilService {
 		return desc;
 	}
 
+	@Override
+	public String getPaisByCode(String code) {
+		for (EnumPais e : EnumPais.values()) {
+			if (code.equals(e.getCodigo()))
+				return e.getDescripcion();
+		}
+		return null;
+	}
+
 }

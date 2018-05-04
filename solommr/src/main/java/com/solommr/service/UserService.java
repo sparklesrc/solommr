@@ -7,6 +7,7 @@ import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
+import com.solommr.model.UserInfo.UserGameProfile;
 
 public interface UserService {
 
@@ -25,4 +26,8 @@ public interface UserService {
 	GenericResponse reSendCode(BasicRequest request);
 
 	GenericResponse verifyCode(Pin request);
+
+	UserGameProfile getUserGameProfile(Long userId, Integer gameId);
+
+	GenericResponse updateUserGameProfile(UserGameProfile request);
 }

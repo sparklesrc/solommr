@@ -82,10 +82,59 @@ $("#btnEditGameProfile").click(function() {
 		alert('Seleccionar Juego.');
 		return;
 	}
-	$("#verMyGameProfile").show();
+
+	$.ajax({
+		type : "GET",
+		url : "/solommr/user/profile/editMyGameProfile",
+		data : {
+			gameId : selected
+		},
+		success : function(data) {
+			$("#idMyGameProfile").html(data);
+			hideAll();
+			$("#verMyGameProfile").show();
+		},
+		error : function(e) {
+			alert('E');
+		}
+	});
 });
 
 $(".checkbox-inline").click(function() {
 	var checkbox = document.querySelector('input[type="checkbox"]');
 	alert(checkbox.value);
 });
+
+function btnUpdateGameProfile(){
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+	var nickName = $('#nickName').val();
+	var celular = $('#celular').val();
+	var description = $('#description').val();
+	var rol = (function() {
+        var a = [];
+        $("#rol:checked").each(function() {
+            a.push(this.value);
+        });
+        return a;
+    });
+
+	$.ajax({
+		type : "POST",
+		url : "/solommr/user/profile/updateGameProfile",
+		data : {
+			gameId : selected,
+			nickname : nickName,
+			celular : celular,
+			description : description,
+			roles : rol
+		},
+		success : function(data) {
+		},
+		error : function(e) {
+		}
+	});
+}

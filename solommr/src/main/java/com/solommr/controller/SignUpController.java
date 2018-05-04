@@ -13,6 +13,7 @@ import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.BasicRequest;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.UserInfo;
+import com.solommr.service.GameService;
 import com.solommr.service.UserService;
 import com.solommr.service.UtilService;
 
@@ -23,10 +24,13 @@ public class SignUpController extends BaseController {
 	private UserService userService;
 	@Autowired
 	private UtilService utilService;
+	@Autowired
+	private GameService gameService;
 
 	@GetMapping("/signup")
 	public String getSignup(HttpServletRequest request, Model model) {
 		model.addAttribute("paises", utilService.getCountries());
+		model.addAttribute("games", gameService.getActiveGames());
 		if (this.getCurrentUser(request) != null) {
 			return "/user/user";
 		}
@@ -35,6 +39,7 @@ public class SignUpController extends BaseController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String postSignup(HttpServletRequest req, SignUp request, Model model) {
+		// Validate if input data is correct
 		GenericResponse response = userService.signUp(request);
 		String msg = "user created";
 		if (response != null) {

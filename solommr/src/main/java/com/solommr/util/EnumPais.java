@@ -34,5 +34,4 @@ public enum EnumPais {
 	public String getCodigoPais() {
 		return codigoPais;
 	}
-
 }

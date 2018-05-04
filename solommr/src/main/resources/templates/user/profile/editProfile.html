@@ -5,27 +5,20 @@
 		<form action="#">
 			<table border="1">
 				<tr>
-					<td><label th:text="Mail" /></td>
-					<td><input type="text" th:value="${mail}"/></td>
+					<td>Mail:</td>
+					<td><label th:text="${mail}"></label></td>
 				</tr>
 				<tr>
-					<td><label th:text="NickName" /></td>
-					<td><input type="text" th:value="${nickName}"/></td>
+					<td>Pais:</td>
+					<td><label th:text="${pais}"></label></td>
 				</tr>
 				<tr>
-					<td><label th:text="Celular" /></td>
-					<td><input type="text" th:value="${celular}"/></td>
+					<td>Edad:</td>
+					<td><label th:text="${edad}"></label></td>
 				</tr>
 				<tr>
-					<td><label th:text="Pais" /></td>
-					<td><input type="text" th:value="${pais}"/></td>
-				</tr>
-				<tr>
-					<td><label th:text="Edad" /></td>
-					<td><input type="text" th:value="${edad}"/></td>
-				</tr>
-				<tr>
-					<td><input id="btnSaveProfile" type="submit" value="Guardar" /></td>
+					<td>Steam Id:</td>
+					<td><label th:text="${steamId}"></label></td>
 				</tr>
 			</table>
 		</form>

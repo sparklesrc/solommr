@@ -1,57 +1,41 @@
 <div th:fragment="myGameProfile" id="idMyGameProfile">
 	<div class="row">
-		<div class="col-xs-9 col-md-9">
-			<div class="row">
-				<div class="col-xs-12 col-md-12">
-					Distribucion actual:
-					<table>
-						<tr>
-							<td><label th:text="'% Awper'" /></td>
-							<td><input type="text" th:value="${rolAwp}"/></td>
-							<td><label th:text="'% Entry Fragger'" /></td>
-							<td><input type="text" th:value="${rolEntryFragger}"/></td>
-						</tr>
-						<tr>
-							<td><label th:text="'% Support'" /></td>
-							<td><input type="text" th:value="${rolSupport}"/></td>
-							<td><label th:text="'% Lurker'" /></td>
-							<td><input type="text" th:value="${rolLurker}"/></td>
-						</tr>
-						<tr>
-							<td><label th:text="'% Assault'" /></td>
-							<td><input type="text" th:value="${rolAssault}"/></td>
-						</tr>
-						<tr>
-							<td><input id="btnSaveProfile" type="submit" value="Guardar" /></td>
-						</tr>
-					</table>
-				</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-12">
+				<fieldset>	
+					<div class="form-group" align="center">
+						<label for="nickName">NickName: </label>
+						<input type="text" name="nickName" id="nickName" placeholder="nickName" required="true" autofocus="true" th:value="${nickName}"/>
+					</div>
+
+					<div class="form-group" align="center">
+						<label for="celular">Celular: </label>
+						<input type="text" name="celular" id="celular" placeholder="celular" required="true" autofocus="true" th:value="${celular}"/>
+					</div>
+
+					<div class="form-group" align="center">
+						<label for="description">Descripci&oacute;n Breve: </label>
+						<textarea class="form-control" name="description" id="description" rows="10" maxlength="1000" th:text="*{description}"></textarea>
+					</div>
+					<h1 class="pull-right" id="count_message"></h1>
+				</fieldset>
 			</div>
-			<div class="row">
-				<div class="col-xs-12 col-md-12">
-					Aqui van tus Roles...
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-12" align="center">
+					<label for="rol">Selecciona tus Roles: </label>
 					<br></br>
 					<div class="form-group container-fluid">
 						<div class="col-lg-12">
-							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="1"/> Awper </label>
-							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="2"/> Entry Fragger </label>
-							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="3"/> Support </label>
-							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="4"/> Lurker </label>
-							<label class="checkbox-inline"> <input type="checkbox" name="rol" value="5"/> Assault </label>
-						</div>
+							<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="1" th:checked="${isAwper}"/> Awper </label>
+							<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="2" th:checked="${isEntryFragger}"/> Entry Fragger </label>
+							<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="3" th:checked="${isSupport}"/> Support </label>
+							<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="4" th:checked="${isLurker}"/> Lurker </label>
+							<label class="checkbox-inline"> <input type="checkbox" id="rol" name="rol" value="5" th:checked="${isAssault}"/> Assault </label>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-3 col-md-3">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<ul class="list-group">
-						<li class="list-group-item" onclick="javascript:myRoles()"><a>Roles</a></li>
-						<li class="list-group-item" onclick="javascript:myAptitudes()"><a>Aptitudes</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<div align="center"><a id="btnUpdateGameProfile" onclick="javascript:btnUpdateGameProfile()" class="btn btn-primary">Actualizar</a></div>
 	</div>
 </div>

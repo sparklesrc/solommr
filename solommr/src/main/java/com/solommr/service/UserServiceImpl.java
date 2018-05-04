@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.solommr.adapter.UserAdapter;
 import com.solommr.model.GenericResponse;
+import com.solommr.model.GenericResponse.SignUpGameProfile;
 import com.solommr.model.GenericResponse.SignUpRequest;
 import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.BasicRequest;
@@ -12,6 +13,7 @@ import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.UserInfo;
+import com.solommr.model.UserInfo.UserGameProfile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -58,6 +60,9 @@ public class UserServiceImpl implements UserService {
 			signUpRequest.setEmail(request.getEmail());
 			signUpRequest.setPais(request.getPais());
 			signUpRequest.setPassword(passwordEncoder.encode(request.getPassword()));
+			SignUpGameProfile gameProfile = new SignUpGameProfile();
+			gameProfile.setGameId(request.getGame());
+			gameProfile.setNickname(request.getNickName());
 			return signUpRequest;
 		}
 		return null;
@@ -71,5 +76,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public GenericResponse verifyCode(Pin request) {
 		return userAdapter.verifyCode(request);
+	}
+
+	@Override
+	public UserGameProfile getUserGameProfile(Long userId, Integer gameId) {
+		return userAdapter.getUserGameProfile(userId, gameId.longValue());
+	}
+
+	@Override
+	public GenericResponse updateUserGameProfile(UserGameProfile request) {
+		return userAdapter.updateGameProfile(request);
 	}
 }
