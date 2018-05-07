@@ -133,8 +133,10 @@ function btnUpdateGameProfile(){
 			roles : rol
 		},
 		success : function(data) {
+			alert('Actualizado');
 		},
 		error : function(e) {
+			alert('Error');
 		}
 	});
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.GenericResponse;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamCSGOProfile.Stats;
 import com.solommr.model.UserInfo.UserGameProfile;
@@ -88,27 +89,29 @@ public class UserProfileController extends BaseController {
 		boolean isSupport = false;
 		boolean isLurker = false;
 		boolean isAssault = false;
-		for (String rol : roles) {
-			Integer code = Integer.parseInt(""+rol.charAt(0));
-			switch (code) {
-			case 1:
-				isAwper = true;
-				break;
-			case 2:
-				isEntryFragger = true;
-				break;
-			case 3:
-				isSupport = true;
-				break;
-			case 4:
-				isLurker = true;
-				break;
-			case 5:
-				isAssault = true;
-				break;
+		if (roles != null) {
+			for (String rol : roles) {
+				Integer code = Integer.parseInt("" + rol.charAt(0));
+				switch (code) {
+				case 1:
+					isAwper = true;
+					break;
+				case 2:
+					isEntryFragger = true;
+					break;
+				case 3:
+					isSupport = true;
+					break;
+				case 4:
+					isLurker = true;
+					break;
+				case 5:
+					isAssault = true;
+					break;
 
-			default:
-				break;
+				default:
+					break;
+				}
 			}
 		}
 		mapRoles.put("isAwper", isAwper);
@@ -121,13 +124,18 @@ public class UserProfileController extends BaseController {
 
 	@RequestMapping(value = "/updateGameProfile", method = RequestMethod.POST)
 	public String editMyGameProfile(HttpServletRequest req, UserGameProfile request, Model model) {
-		//update Game Profile
+		// update Game Profile
 		UserInfo currentUser = this.getCurrentUser(req);
+		String status = "error";
 		if (currentUser == null) {
 			return "redirect:/login";
 		}
 		request.setUserId(currentUser.getUserId());
-		userService.updateUserGameProfile(request);
+		GenericResponse gR = userService.updateUserGameProfile(request);
+		if (gR != null && !"".equals(gR.getMsg())) {
+			status = gR.getMsg();
+		}
+		model.addAttribute("status", status);
 		return "/user/profile/myGameProfile :: myGameProfile";
 	}
 
