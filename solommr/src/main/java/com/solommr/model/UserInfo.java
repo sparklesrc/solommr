@@ -13,6 +13,15 @@ public class UserInfo {
 	private List<List<Integer>> userTeams;
 	private String pais;
 	private Integer edad;
+	private boolean isActive;
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	public Integer getEdad() {
 		return edad;

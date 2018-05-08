@@ -171,7 +171,7 @@ public class UserAdapter extends BaseAdapter {
 		req_payload.put("mail", request.getEmail());
 		req_payload.put("code", request.getMyPin());
 
-		String response = this.doPostCall(req_payload, resendCode);
+		String response = this.doPostCall(req_payload, verifyCode);
 
 		if (response == null || response.contains("Error")) {
 			return null;
