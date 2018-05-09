@@ -35,6 +35,7 @@ public class SteamPlayerSummarie {
 		private Integer profilestate;
 		private String personaname;
 		private Integer lastlogoff;
+		private Integer commentpermission;
 		private String profileurl;
 		private String avatar;
 		private String avatarmedium;
@@ -44,6 +45,14 @@ public class SteamPlayerSummarie {
 		private String primaryclanid;
 		private Integer timecreated;
 		private Integer personastateflags;
+
+		public Integer getCommentpermission() {
+			return commentpermission;
+		}
+
+		public void setCommentpermission(Integer commentpermission) {
+			this.commentpermission = commentpermission;
+		}
 
 		public String getSteamid() {
 			return steamid;

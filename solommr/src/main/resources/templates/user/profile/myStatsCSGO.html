@@ -1,9 +1,9 @@
 <div th:fragment="myStatsCSGO" id="idFragmentMyStatsCSGO">
 	<div class="container" align="center">
-<!-- 		<img th:src="@{imgProfile}"/> -->
-<!-- 		<img src="@{imgProfile}" alt="Mountain View" style="width:304px;height:228px"/> -->
-		<p>
+			<img th:src="${imgProfile}" class="img-responsive"/>
+			Nickname: <span th:text="${nickName}"></span> <br/>
+			Real Name: <span th:text="${realName}"></span> <br/>
+			Steam Profile: <span th:text="${profileUrl}"></span> <br/>
 			Total Kills: <span th:text="${total_kills}"></span>
-		</p>
 	</div>
 </div>

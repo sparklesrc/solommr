@@ -29,7 +29,7 @@ $("#btnMyStats").click(function() {
 			$("#verMyStats").show();
 		},
 		error : function(e) {
-			alert('ERROR');
+			alert('Ups. Al parecer tu perfil de Steam no esta publico.');
 		}
 	});
 });

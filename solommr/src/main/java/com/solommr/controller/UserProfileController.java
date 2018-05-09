@@ -149,9 +149,7 @@ public class UserProfileController extends BaseController {
 		model.addAttribute("isUserSyncWithSteam", currentUser.isUserSyncWithSteam());
 		model.addAttribute("gameId", gameId);
 
-		// PlayerSummarie
-//		SteamPlayerSummarie steamPlayerSummarie = userService.getSteamPlayerSummarie(currentUser.getSteamId());
-//		model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
+		getPlayerSummarie(model, currentUser.getSteamId());
 		
 		// CSGO
 		if ("1".equals(gameId) && currentUser.isUserSyncWithSteam()) {
@@ -169,5 +167,16 @@ public class UserProfileController extends BaseController {
 			resultsMap.put((String) o.getName(), (Long) o.getValue());
 		}
 		return resultsMap;
+	}
+
+	private void getPlayerSummarie(Model model, String steamId) {
+		// PlayerSummarie
+		SteamPlayerSummarie steamPlayerSummarie = userService.getSteamPlayerSummarie(steamId);
+		if (steamPlayerSummarie != null) {
+			model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
+			model.addAttribute("nickName", steamPlayerSummarie.getResponse().getPlayers().get(0).getPersonaname());
+			model.addAttribute("realName", steamPlayerSummarie.getResponse().getPlayers().get(0).getRealname());
+			model.addAttribute("profileUrl", steamPlayerSummarie.getResponse().getPlayers().get(0).getProfileurl());
+		}
 	}
 }
