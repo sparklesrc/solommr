@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.solommr.adapter.ClanAdapter;
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.GenericResponse;
 import com.solommr.model.Reclutar;
 import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
+import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 
 @Service
 public class ClanServiceImpl implements ClanService {
@@ -64,5 +66,14 @@ public class ClanServiceImpl implements ClanService {
 				str += "|Assault|";
 		}
 		return str;
+	}
+
+	@Override
+	public GenericResponse recruitPlayer(RecruitPlayerRequest request) {
+		GenericResponse gR = clanAdapter.recruitPlayer(request);
+		if (gR == null) {
+			new GenericResponse("error");
+		}
+		return gR;
 	}
 }

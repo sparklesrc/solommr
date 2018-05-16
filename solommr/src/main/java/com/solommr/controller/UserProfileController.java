@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.solommr.model.ClanDataResponse;
 import com.solommr.model.GenericResponse;
@@ -178,5 +179,19 @@ public class UserProfileController extends BaseController {
 			model.addAttribute("realName", steamPlayerSummarie.getResponse().getPlayers().get(0).getRealname());
 			model.addAttribute("profileUrl", steamPlayerSummarie.getResponse().getPlayers().get(0).getProfileurl());
 		}
+	}
+
+	@GetMapping("/userPublicProfileByGame")
+	public ModelAndView userPublicProfile(HttpServletRequest request, Model model) {
+		String gameId = (String) request.getParameter("gameId");
+		String userId = (String) request.getParameter("userId");
+		boolean comesFromRecruitment = Boolean.parseBoolean(request.getParameter("comesFromRecruitment"));
+		UserInfo currentUser = this.getCurrentUser(request);
+		if (currentUser == null) {
+			return new ModelAndView("/login");
+		}
+		model.addAttribute("isUserSyncWithSteam" , true);
+		model.addAttribute("gameId" , 1);
+		return new ModelAndView("/user/profile/userPublicProfile");
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.solommr.model.ClanDataResponse;
+import com.solommr.model.GenericResponse;
 import com.solommr.model.SignUp;
 import com.solommr.model.ClanDataResponse.Members;
 import com.solommr.model.Reclutar;
@@ -18,6 +19,7 @@ import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.UserInfo;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
+import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
 import com.solommr.service.ClanService;
 import com.solommr.service.GameService;
@@ -166,5 +168,29 @@ public class UserTeamController extends BaseController{
 		// ESTADO 1>Sin Clan 2>Con Clan
 		model.addAttribute("hasData", hasData);
 		return "user/team/reclutarResult :: reclutarResult";
+	}
+
+	@RequestMapping(value = "/team/recruitPlayer", method = RequestMethod.POST)
+	public GenericResponse recruitPlayer(RecruitPlayerRequest request, HttpServletRequest req, Model model) {
+		UserInfo currentUser = this.getCurrentUser(req);
+		if (currentUser == null) {
+			return new GenericResponse("error");
+		}
+		List<List<Integer>> mappedTeams = currentUser.getUserTeams();
+		Long clanId = null;
+		if (mappedTeams != null) {
+			for (List<Integer> e : mappedTeams) {
+				if (e != null && e.get(0) == request.getGameId().intValue()) {
+					clanId = e.get(1).longValue();
+				}
+			}
+		}
+
+		if (clanId == null) {
+			return new GenericResponse("error");
+		}
+
+		request.setClanId(clanId);
+		return clanService.recruitPlayer(request);
 	}
 }

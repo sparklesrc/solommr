@@ -109,4 +109,43 @@ public class TeamSearchReq {
 			this.country = country;
 		}
 	}
+
+	public static class RecruitPlayerRequest {
+		private Long gameId;
+		private Long userId;
+		private Long clanId;
+		private String description;
+
+		public Long getClanId() {
+			return clanId;
+		}
+
+		public void setClanId(Long clanId) {
+			this.clanId = clanId;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public Long getGameId() {
+			return gameId;
+		}
+
+		public void setGameId(Long gameId) {
+			this.gameId = gameId;
+		}
+
+		public Long getUserId() {
+			return userId;
+		}
+
+		public void setUserId(Long userId) {
+			this.userId = userId;
+		}
+	}
 }

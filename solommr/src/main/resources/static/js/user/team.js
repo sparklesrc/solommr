@@ -1,4 +1,4 @@
-function hideAll(){
+function hideAll() {
 	$("#csgoBox").hide();
 	$("#dotaBox").hide();
 	$("#searchTeamBox").hide();
@@ -46,7 +46,7 @@ $("#btnMyTeam").click(function() {
 $("#btnSearchTeam").click(function() {
 	hideAll();
 	var selected = getGameSelected();
-//	return;
+	// return;
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
 		return;
@@ -57,40 +57,38 @@ $("#btnSearchTeam").click(function() {
 });
 
 // BUSCAR EQUIPO
-$("#btnDoSearch").click(
-		function() {
-			var selected = getGameSelected();
-			if (selected == '0') {
-				alert('Seleccionar Juego.');
-				return;
-			}
-			var teamName = getTeamName();
-			if (teamName == '') {
-				alert('Ingrese Nombre/Id del Equipo.');
-				return;
-			}
+$("#btnDoSearch").click(function() {
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+	var teamName = getTeamName();
+	if (teamName == '') {
+		alert('Ingrese Nombre/Id del Equipo.');
+		return;
+	}
 
-			$.ajax({
-				type : "POST",
-				url : "/solommr/user/team/search",
-				data : {
-					gameId : selected,
-					criteria : teamName
-				},
-				success : function(data) {
-					$('#idTeamSearchResult').html(data);
-					hideAll();
-					$("#idMostrarResultado").show();
-				},
-				error : function(e) {
-					$('#idTeamSearchResult').html(
-							'No se encontraron coincidencias.');
-					hideAll();
-					$("#idMostrarResultado").show();
-				}
-			});
+	$.ajax({
+		type : "POST",
+		url : "/solommr/user/team/search",
+		data : {
+			gameId : selected,
+			criteria : teamName
+		},
+		success : function(data) {
+			$('#idTeamSearchResult').html(data);
+			hideAll();
+			$("#idMostrarResultado").show();
+		},
+		error : function(e) {
+			$('#idTeamSearchResult').html('No se encontraron coincidencias.');
+			hideAll();
+			$("#idMostrarResultado").show();
+		}
+	});
 
-		});
+});
 
 function getGameSelected() {
 	var e = document.getElementById("criteria");
@@ -134,12 +132,12 @@ $("#criteria").on('change', function() {
 	}
 });
 
-function reclutar(){	
+function reclutar() {
 	$("#myTeamContent").hide();
 	$("#reclutar").show();
 }
 
-function btnDoSearchRecruitment(){	
+function btnDoSearchRecruitment() {
 	var selected = getGameSelected();
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
@@ -152,12 +150,12 @@ function btnDoSearchRecruitment(){
 	var nickName = $('#nickName').val();
 	var email = $('#email').val();
 	var rol = (function() {
-        var a = [];
-        $("#rol:checked").each(function() {
-            a.push(this.value);
-        });
-        return a;
-    });
+		var a = [];
+		$("#rol:checked").each(function() {
+			a.push(this.value);
+		});
+		return a;
+	});
 
 	var e = document.getElementById("estado");
 	var estado = e.options[e.selectedIndex].value;
@@ -179,15 +177,14 @@ function btnDoSearchRecruitment(){
 			$("#reclutarResult").show();
 		},
 		error : function(e) {
-			$('#idReclutarResult').html(
-					'No se encontraron coincidencias.');
+			$('#idReclutarResult').html('No se encontraron coincidencias.');
 			hideAll();
 			$("#reclutarResult2").show();
 		}
 	});
 }
 
-function btnBuildTeam(){
+function btnBuildTeam() {
 	var selected = getGameSelected();
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
@@ -196,8 +193,7 @@ function btnBuildTeam(){
 	$.ajax({
 		type : "GET",
 		url : "/solommr/user/team/build",
-		data : {
-		},
+		data : {},
 		success : function(data) {
 			$("#showMesage").hide();
 			$('#idBuildTeam').html(data);
@@ -209,7 +205,7 @@ function btnBuildTeam(){
 	});
 }
 
-function btnDoBuildTeam(){
+function btnDoBuildTeam() {
 	var selected = getGameSelected();
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
@@ -233,6 +229,59 @@ function btnDoBuildTeam(){
 		success : function(data) {
 		},
 		error : function(e) {
+		}
+	});
+}
+
+function getPlayerProfile(playerId) {
+	if (playerId === 'undefined' && playerId === null) {
+		alert('Error al mostrar perfil');
+		return;
+	}
+
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+
+	window.location.href = "/solommr/user/profile/userPublicProfileByGame?gameId="
+			+ selected
+			+ "&userId="
+			+ playerId
+			+ "&comesFromRecruitment="
+			+ true;
+
+}
+
+function recruitPlayer(playerId) {
+	if (playerId === 'undefined' && playerId === null) {
+		alert('Error al mostrar perfil');
+		return;
+	}
+
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+
+	$.ajax({
+		type : "POST",
+		url : "/solommr/user/team/recruitPlayer",
+		data : {
+			userId : playerId,
+			gameId : selected
+		},
+		success : function(data) {
+			if (data.msg === 'ok') {
+				alert('Solicitud Enviada');
+			} else {
+				alert('Error al Reclutar');
+			}
+		},
+		error : function(e) {
+			alert('Error al Reclutar');
 		}
 	});
 }

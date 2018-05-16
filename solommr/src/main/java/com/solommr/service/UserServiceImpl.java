@@ -12,6 +12,7 @@ import com.solommr.model.SignUp.BasicRequest;
 import com.solommr.model.SignUp.Pin;
 import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
+import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 import com.solommr.model.UserInfo;
 import com.solommr.model.UserInfo.UserGameProfile;
 

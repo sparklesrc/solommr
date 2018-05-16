@@ -17,18 +17,21 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solommr.model.ClanDataResponse;
 import com.solommr.model.Game;
+import com.solommr.model.GenericResponse;
 import com.solommr.model.Reclutar;
 import com.solommr.model.UserInfo;
 import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
+import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
+import com.solommr.model.UserInfo.UserGameProfile;
 
 @Component
-public class ClanAdapter extends BaseAdapter{
+public class ClanAdapter extends BaseAdapter {
 
 	@Autowired
 	private RestTemplate restTemplate;
 
-//	@Value("${projectrc.url.team.search}")
+	// @Value("${projectrc.url.team.search}")
 	private String teamSearch;
 
 	@Value("${steam.url.buildTeam}")
@@ -36,6 +39,9 @@ public class ClanAdapter extends BaseAdapter{
 
 	@Value("${projectrc.url.team.searchUsersByCriteria}")
 	private String searchUsersByCriteria;
+
+	@Value("${projectrc.url.team.recruitPlayer}")
+	private String recruitPlayer;
 
 	public ClanDataResponse getClanData(Long gameId, String criteria) {
 		String uri = "http://projectrc-pj-solo-mmr.7e14.starter-us-west-2.openshiftapps.com/projectrc/rest/team/search";
@@ -64,7 +70,7 @@ public class ClanAdapter extends BaseAdapter{
 		return obj;
 	}
 
-	public String buildTeam(BuildTeamReq request){
+	public String buildTeam(BuildTeamReq request) {
 		Map req_payload = new HashMap();
 		req_payload.put("gameId", request.getGameId());
 		req_payload.put("userId", request.getUserId());
@@ -86,7 +92,7 @@ public class ClanAdapter extends BaseAdapter{
 		} catch (Exception e) {
 			System.out.println("Error en Mapping Response - Build Team");
 			return null;
-		}		
+		}
 	}
 
 	public ReclutarSearchResult[] searchUsersByCriteria(Reclutar request) {
@@ -110,6 +116,27 @@ public class ClanAdapter extends BaseAdapter{
 			return mapper.readValue(response, ReclutarSearchResult[].class);
 		} catch (Exception e) {
 			System.out.println("Error en Search Users by Criteria...");
+			return null;
+		}
+	}
+
+	public GenericResponse recruitPlayer(RecruitPlayerRequest request) {
+		Map req_payload = new HashMap();
+		req_payload.put("clanId", request.getGameId());
+		req_payload.put("userId", request.getUserId());
+		req_payload.put("description", request.getDescription());
+
+		String response = this.doPostCall(req_payload, recruitPlayer);
+
+		if (response == null || response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, GenericResponse.class);
+		} catch (Exception e) {
+			System.out.println("Error al actualizar game Profile para usuario " + request.getUserId());
 			return null;
 		}
 	}

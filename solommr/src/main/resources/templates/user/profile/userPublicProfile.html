@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="/fragments/header :: header-css" />
+
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div th:replace="/fragments/header_user :: header" />
+
+	<div class="container">
+
+		<div class="starter-template">
+
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<div style="background-color: lightblue;">
+							<p align="center"> Juego
+							<select id="criteria">
+							    <option th:value="0" th:text="Seleccionar"></option>
+							    <option th:each="game : ${games}" th:value="${game.gameId}" th:text="${game.name}">...</option>
+							</select>
+							</p>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+			
+			
+		<div th:if="${isUserSyncWithSteam}">
+			<div id="idMostrarGameStats">
+				<div th:if="${gameId} == 1">
+					<div th:replace="/user/profile/myStatsCSGO :: myStatsCSGO"></div>
+				</div>
+				<div th:if="${gameId} == 2">
+				</div>
+			</div>
+		</div>
+
+		<div th:unless="${isUserSyncWithSteam}">
+			<div>Al Parecer este Usuario aun no ha sincronizado su cuenta con Steam.</div>
+		</div>
+
+		<!-- Additional Data -->
+		
+		12345 <br/>
+		12345 <br/>
+			
+			
+			
+
+			<form th:action="@{/logout}" method="post">
+				<div align="right"><input type="submit" value="Sign Out" /></div>
+			</form>
+
+		</div>
+
+	</div>
+	<!-- /.container -->
+	<div th:replace="/fragments/footer :: footer" />
+</body>
+</html>
