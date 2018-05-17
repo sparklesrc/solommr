@@ -22,6 +22,7 @@ import com.solommr.model.Reclutar;
 import com.solommr.model.UserInfo;
 import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
+import com.solommr.model.TeamSearchReq.DeleteTeamRequest;
 import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 import com.solommr.model.UserInfo.UserGameProfile;
 
@@ -34,7 +35,7 @@ public class ClanAdapter extends BaseAdapter {
 	// @Value("${projectrc.url.team.search}")
 	private String teamSearch;
 
-	@Value("${steam.url.buildTeam}")
+	@Value("${projectrc.url.team.build}")
 	private String buildTeam;
 
 	@Value("${projectrc.url.team.searchUsersByCriteria}")
@@ -42,6 +43,9 @@ public class ClanAdapter extends BaseAdapter {
 
 	@Value("${projectrc.url.team.recruitPlayer}")
 	private String recruitPlayer;
+
+	@Value("${projectrc.url.team.delete}")
+	private String deleteTeam;
 
 	public ClanDataResponse getClanData(Long gameId, String criteria) {
 		String uri = "http://projectrc-pj-solo-mmr.7e14.starter-us-west-2.openshiftapps.com/projectrc/rest/team/search";
@@ -95,6 +99,25 @@ public class ClanAdapter extends BaseAdapter {
 		}
 	}
 
+	public String deleteTeam(DeleteTeamRequest request) {
+		Map req_payload = new HashMap();
+		req_payload.put("clanId", request.getTeamId());
+		req_payload.put("userId", request.getUserId());
+
+		String response = this.doPostCall(req_payload, deleteTeam);
+
+		if (response.contains("Error")) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, String.class);
+		} catch (Exception e) {
+			System.out.println("Error en Mapping Response - Delete Team");
+			return null;
+		}
+	}
 	public ReclutarSearchResult[] searchUsersByCriteria(Reclutar request) {
 		Map req_payload = new HashMap();
 		req_payload.put("gameId", request.getGameId());

@@ -19,6 +19,7 @@ import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.UserInfo;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
+import com.solommr.model.TeamSearchReq.DeleteTeamRequest;
 import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 import com.solommr.model.TeamSearchReq.TeamSearchResponse;
 import com.solommr.service.ClanService;
@@ -124,6 +125,7 @@ public class UserTeamController extends BaseController{
 			boolean isLeader = false;
 			ClanDataResponse cDR = clanService.searchTeam(req);
 			model.addAttribute("teamName", cDR.getClanName());
+			model.addAttribute("teamId", cDR.getClanId());
 			model.addAttribute("members", cDR.getMembers());
 			for(Members member : cDR.getMembers()) {
 				if(member.getUserId().equals(user.getUserId())) {
@@ -192,5 +194,18 @@ public class UserTeamController extends BaseController{
 
 		request.setClanId(clanId);
 		return clanService.recruitPlayer(request);
+	}
+
+	@RequestMapping(value = "/team/deleteTeam", method = RequestMethod.POST)
+	public GenericResponse deleteTeam(DeleteTeamRequest request, HttpServletRequest req, Model model) {
+		UserInfo currentUser = this.getCurrentUser(req);
+		if (currentUser == null) {
+			return new GenericResponse("error");
+		}
+		if (request.getIsLeader()) {
+			request.setUserId(currentUser.getUserId());
+			clanService.deleteTeam(request);
+		}
+		return new GenericResponse("ok");
 	}
 }

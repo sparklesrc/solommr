@@ -1,8 +1,8 @@
 package com.solommr.service;
 
 import java.util.List;
+import com.solommr.model.ClanDataResponse.Members;
 import com.solommr.model.SignUp.Country;
-import com.solommr.util.EnumRolesCSGO;
 
 public interface UtilService {
 
@@ -11,4 +11,6 @@ public interface UtilService {
 	List<String> getRolesByCode(String... roles);
 
 	String getPaisByCode(String code);
+
+	Long getTeamLeaderId(List<Members> members);
 }

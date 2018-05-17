@@ -157,7 +157,7 @@
 									<li class="list-group-item" onclick="javascript:reclutar()"><a>Editar Perfil</a></li>
 									<li class="list-group-item" onclick="javascript:reclutar()"><a>Cambiar Rol</a></li>
 									<li class="list-group-item" onclick="javascript:reclutar()"><a>Kick Member</a></li>
-									<li class="list-group-item" onclick="javascript:reclutar()"><a>Eliminar Equipo</a></li>
+									<li class="list-group-item" onclick="javascript:deleteTeam()"><a>Eliminar Equipo</a></li>
 								</ul>
 							</div>
 						</div>
@@ -184,4 +184,7 @@
 				<div th:replace="/user/team/build :: buildTeam"></div>
 			</div>
 		</div>
+		
+		<input id="teamId" type="hidden" th:value="${teamId}" name="teamId"/>
+		<input id="isLeader" type="hidden" th:value="${isLeader}" name="isLeader"/>
 </div>

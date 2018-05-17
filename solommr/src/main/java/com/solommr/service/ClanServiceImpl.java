@@ -12,6 +12,7 @@ import com.solommr.model.Reclutar;
 import com.solommr.model.Reclutar.ReclutarSearchResult;
 import com.solommr.model.TeamSearchReq;
 import com.solommr.model.TeamSearchReq.BuildTeamReq;
+import com.solommr.model.TeamSearchReq.DeleteTeamRequest;
 import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 
 @Service
@@ -75,5 +76,11 @@ public class ClanServiceImpl implements ClanService {
 			new GenericResponse("error");
 		}
 		return gR;
+	}
+
+	@Override
+	public GenericResponse deleteTeam(DeleteTeamRequest request) {
+		String response = clanAdapter.deleteTeam(request);
+		return null;
 	}
 }

@@ -285,3 +285,38 @@ function recruitPlayer(playerId) {
 		}
 	});
 }
+
+function deleteTeam(){
+	
+	var isLeader = $('#isLeader').val();
+	var teamId = $('#teamId').val();
+	
+	alert('eliminar ' + isLeader + ' ' + teamId);
+	
+	var selected = getGameSelected();
+	if (selected == '0') {
+		alert('Seleccionar Juego.');
+		return;
+	}
+
+	$.ajax({
+		type : "POST",
+		url : "/solommr/user/team/deleteTeam",
+		data : {
+			gameId : selected,
+			isLeader : isLeader,
+			teamId : teamId,
+			userId : null
+		},
+		success : function(data) {
+			if (data.msg === 'ok') {
+				alert('Team Eliminado');
+			} else {
+				alert('Error');
+			}
+		},
+		error : function(e) {
+			alert('Error al Eliminar Equipo');
+		}
+	});
+}

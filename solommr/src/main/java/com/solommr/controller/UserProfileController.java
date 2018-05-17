@@ -173,7 +173,8 @@ public class UserProfileController extends BaseController {
 	private void getPlayerSummarie(Model model, String steamId) {
 		// PlayerSummarie
 		SteamPlayerSummarie steamPlayerSummarie = userService.getSteamPlayerSummarie(steamId);
-		if (steamPlayerSummarie != null) {
+		if (steamPlayerSummarie != null && steamPlayerSummarie.getResponse() != null
+				&& !steamPlayerSummarie.getResponse().getPlayers().isEmpty()) {
 			model.addAttribute("imgProfile", steamPlayerSummarie.getResponse().getPlayers().get(0).getAvatarfull());
 			model.addAttribute("nickName", steamPlayerSummarie.getResponse().getPlayers().get(0).getPersonaname());
 			model.addAttribute("realName", steamPlayerSummarie.getResponse().getPlayers().get(0).getRealname());

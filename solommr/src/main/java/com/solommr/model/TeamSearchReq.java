@@ -148,4 +148,44 @@ public class TeamSearchReq {
 			this.userId = userId;
 		}
 	}
+
+	public static class DeleteTeamRequest {
+		private Long gameId;
+		private Long teamId;
+		private Boolean isLeader;
+		private Long userId;
+
+		public Long getUserId() {
+			return userId;
+		}
+
+		public void setUserId(Long userId) {
+			this.userId = userId;
+		}
+
+		public Long getGameId() {
+			return gameId;
+		}
+
+		public void setGameId(Long gameId) {
+			this.gameId = gameId;
+		}
+
+		public Long getTeamId() {
+			return teamId;
+		}
+
+		public void setTeamId(Long teamId) {
+			this.teamId = teamId;
+		}
+
+		public Boolean getIsLeader() {
+			return isLeader;
+		}
+
+		public void setIsLeader(Boolean isLeader) {
+			this.isLeader = isLeader;
+		}
+
+	}
 }
