@@ -120,6 +120,7 @@ public class ClanAdapter extends BaseAdapter {
 	}
 	public ReclutarSearchResult[] searchUsersByCriteria(Reclutar request) {
 		Map req_payload = new HashMap();
+		req_payload.put("userId", request.getUserId());
 		req_payload.put("gameId", request.getGameId());
 		req_payload.put("nickName", request.getNickName());
 		req_payload.put("email", request.getEmail());

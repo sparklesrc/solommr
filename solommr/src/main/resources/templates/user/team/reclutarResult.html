@@ -8,7 +8,6 @@
 					<table border="1">
 						<tr>
 							<td colspan="5">Nick de Jugador</td>
-							<td colspan="5">Mail de Jugador</td>
 							<td colspan="5">Edad</td>
 							<td colspan="5">Pais</td>
 							<td colspan="5">Roles</td>
@@ -20,7 +19,6 @@
 						<th:block th:each="player : ${players}">
 							<tr>
 								<td colspan="5" th:text="${player.nickName}">...</td>
-								<td colspan="5" th:text="${player.mail}">...</td>
 								<td colspan="5" th:text="${player.edad}">...</td>
 								<td colspan="5" th:text="${player.pais}">...</td>
 								<td colspan="5" th:text="${player.roles}">...</td>

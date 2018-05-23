@@ -143,6 +143,10 @@ public class UserTeamController extends BaseController{
 
 	@RequestMapping(value = "/team/reclutarSearch", method = RequestMethod.POST)
 	public String reclutarSearch(HttpServletRequest req, Reclutar request, Model model) {
+		UserInfo user = this.getCurrentUser( req);
+		if (user == null) {
+			return "redirect:/login";
+		}
 		// Fix Request
 		if("0".equals(request.getPais())) {
 			request.setPais(null);
@@ -159,6 +163,7 @@ public class UserTeamController extends BaseController{
 		List<ReclutarSearchResult> players = null;
 		boolean hasData = false;
 		try {
+			request.setUserId(user.getUserId());
 			players = clanService.searchUsersByCriteria(request);
 			if (players != null && !players.isEmpty()) {
 				hasData = true;

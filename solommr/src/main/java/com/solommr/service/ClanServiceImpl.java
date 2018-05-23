@@ -56,17 +56,17 @@ public class ClanServiceImpl implements ClanService {
 		String rol[] = roles.split(",");
 		for (String r : rol) {
 			if (r.contains("1"))
-				str += "|Awper|";
+				str += "Awper, ";
 			if (r.contains("2"))
-				str += "|Entry Fragger|";
+				str += "Entry Fragger, ";
 			if (r.contains("3"))
-				str += "|Support|";
+				str += "Support, ";
 			if (r.contains("4"))
-				str += "|Lurker|";
+				str += "Lurker, ";
 			if (r.contains("5"))
-				str += "|Assault|";
+				str += "Assault, ";
 		}
-		return str;
+		return str == "" ? "" : str.substring(0, str.length() - 2);
 	}
 
 	@Override

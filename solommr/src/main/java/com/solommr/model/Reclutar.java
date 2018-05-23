@@ -2,6 +2,7 @@ package com.solommr.model;
 
 public class Reclutar {
 
+	private Long userId;
 	private Integer gameId;
 	private String nickName;
 	private String email;
@@ -9,6 +10,14 @@ public class Reclutar {
 	private String pais;
 	private String[] rol;
 	private Integer estado;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public String getNickName() {
 		return nickName;
