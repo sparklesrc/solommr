@@ -81,6 +81,6 @@ public class ClanServiceImpl implements ClanService {
 	@Override
 	public GenericResponse deleteTeam(DeleteTeamRequest request) {
 		String response = clanAdapter.deleteTeam(request);
-		return null;
+		return new GenericResponse("ok");
 	}
 }

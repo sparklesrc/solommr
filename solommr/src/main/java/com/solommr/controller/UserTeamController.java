@@ -63,6 +63,9 @@ public class UserTeamController extends BaseController{
 			UserInfo usuario = userService.getUserByMail(user.getMail());
 			req.getSession().setAttribute("SESSION_USUARIO", usuario);
 		}
+		req.getSession().removeAttribute("SESSION_USUARIO");
+		UserInfo usuario = userService.getUserByMail(user.getMail());
+		req.getSession().setAttribute("SESSION_USUARIO", usuario);
 		return "redirect:/user/team/myTeam?gameId="+request.getGameId();
 	}
 
@@ -203,6 +206,7 @@ public class UserTeamController extends BaseController{
 
 	@RequestMapping(value = "/team/deleteTeam", method = RequestMethod.POST)
 	public GenericResponse deleteTeam(DeleteTeamRequest request, HttpServletRequest req, Model model) {
+		System.out.println("USER/TEAM " + request.getUserId() + "/" + request.getTeamId());
 		UserInfo currentUser = this.getCurrentUser(req);
 		if (currentUser == null) {
 			return new GenericResponse("error");
@@ -211,6 +215,9 @@ public class UserTeamController extends BaseController{
 			request.setUserId(currentUser.getUserId());
 			clanService.deleteTeam(request);
 		}
+		req.getSession().removeAttribute("SESSION_USUARIO");
+		UserInfo usuario = userService.getUserByMail(currentUser.getMail());
+		req.getSession().setAttribute("SESSION_USUARIO", usuario);
 		return new GenericResponse("ok");
 	}
 }

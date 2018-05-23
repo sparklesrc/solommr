@@ -106,7 +106,7 @@ public class ClanAdapter extends BaseAdapter {
 
 		String response = this.doPostCall(req_payload, deleteTeam);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("Error")) {
 			return null;
 		}
 
