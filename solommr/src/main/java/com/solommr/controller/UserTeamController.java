@@ -55,18 +55,13 @@ public class UserTeamController extends BaseController{
 	}
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.POST)
-	public String buildTeamPost(HttpServletRequest req, BuildTeamReq request, Model model) {
+	public @ResponseBody GenericResponse buildTeamPost(HttpServletRequest req, BuildTeamReq request, Model model) {
 		UserInfo user = this.getCurrentUser(req);
 		request.setUserId(user.getUserId());
 		String resp = clanService.buildTeam(request);
-		if (resp != null && !"error".equals(resp)) {
-			UserInfo usuario = userService.getUserByMail(user.getMail());
-			req.getSession().setAttribute("SESSION_USUARIO", usuario);
-		}
-		req.getSession().removeAttribute("SESSION_USUARIO");
 		UserInfo usuario = userService.getUserByMail(user.getMail());
 		req.getSession().setAttribute("SESSION_USUARIO", usuario);
-		return "redirect:/user/team/myTeam?gameId="+request.getGameId();
+		return new GenericResponse(resp);
 	}
 
 	@RequestMapping(value = "/team/build", method = RequestMethod.GET)
@@ -205,19 +200,21 @@ public class UserTeamController extends BaseController{
 	}
 
 	@RequestMapping(value = "/team/deleteTeam", method = RequestMethod.POST)
-	public GenericResponse deleteTeam(DeleteTeamRequest request, HttpServletRequest req, Model model) {
-		System.out.println("USER/TEAM " + request.getUserId() + "/" + request.getTeamId());
+	public @ResponseBody GenericResponse deleteTeam(DeleteTeamRequest request, HttpServletRequest req, Model model) {
 		UserInfo currentUser = this.getCurrentUser(req);
+		GenericResponse gR = null;
 		if (currentUser == null) {
 			return new GenericResponse("error");
 		}
 		if (request.getIsLeader()) {
 			request.setUserId(currentUser.getUserId());
-			clanService.deleteTeam(request);
+			gR = clanService.deleteTeam(request);
 		}
-		req.getSession().removeAttribute("SESSION_USUARIO");
-		UserInfo usuario = userService.getUserByMail(currentUser.getMail());
-		req.getSession().setAttribute("SESSION_USUARIO", usuario);
-		return new GenericResponse("ok");
+		if (gR != null && "ok".equals(gR.getMsg())) {
+			UserInfo usuario = userService.getUserByMail(currentUser.getMail());
+			req.getSession().setAttribute("SESSION_USUARIO", usuario);
+			return gR;
+		}
+		return new GenericResponse("error");
 	}
 }

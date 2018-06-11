@@ -74,7 +74,7 @@ public class ClanAdapter extends BaseAdapter {
 		return obj;
 	}
 
-	public String buildTeam(BuildTeamReq request) {
+	public GenericResponse buildTeam(BuildTeamReq request) {
 		Map req_payload = new HashMap();
 		req_payload.put("gameId", request.getGameId());
 		req_payload.put("userId", request.getUserId());
@@ -86,33 +86,33 @@ public class ClanAdapter extends BaseAdapter {
 
 		String response = this.doPostCall(req_payload, buildTeam);
 
-		if (response.contains("Error")) {
+		if (response == null || response.contains("error")) {
 			return null;
 		}
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			return mapper.readValue(response, String.class);
+			return mapper.readValue(response, GenericResponse.class);
 		} catch (Exception e) {
 			System.out.println("Error en Mapping Response - Build Team");
 			return null;
 		}
 	}
 
-	public String deleteTeam(DeleteTeamRequest request) {
+	public GenericResponse deleteTeam(DeleteTeamRequest request) {
 		Map req_payload = new HashMap();
 		req_payload.put("clanId", request.getTeamId());
 		req_payload.put("userId", request.getUserId());
 
 		String response = this.doPostCall(req_payload, deleteTeam);
 
-		if (response == null || response.contains("Error")) {
+		if (response == null || response.contains("error")) {
 			return null;
 		}
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			return mapper.readValue(response, String.class);
+			return mapper.readValue(response, GenericResponse.class);
 		} catch (Exception e) {
 			System.out.println("Error en Mapping Response - Delete Team");
 			return null;

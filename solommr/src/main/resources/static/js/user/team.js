@@ -227,8 +227,15 @@ function btnDoBuildTeam() {
 			gameId : selected
 		},
 		success : function(data) {
+			if(data.msg === 'ok'){
+				alert("Team creado");
+				window.location.href = "/solommr/user/team";	
+			}else{
+				alert("Al parecer hubo un error");
+			}
 		},
 		error : function(e) {
+			alert("Al parecer hubo un error");
 		}
 	});
 }
@@ -290,9 +297,6 @@ function deleteTeam(){
 	
 	var isLeader = $('#isLeader').val();
 	var teamId = $('#teamId').val();
-	
-	alert('eliminar ' + isLeader + ' ' + teamId);
-	
 	var selected = getGameSelected();
 	if (selected == '0') {
 		alert('Seleccionar Juego.');
@@ -311,6 +315,7 @@ function deleteTeam(){
 		success : function(data) {
 			if (data.msg === 'ok') {
 				alert('Team Eliminado');
+				window.location.href = "/solommr/user/team";
 			} else {
 				alert('Error');
 			}

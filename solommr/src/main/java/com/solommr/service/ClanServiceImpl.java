@@ -29,7 +29,8 @@ public class ClanServiceImpl implements ClanService {
 	@Override
 	public String buildTeam(BuildTeamReq request) {
 		try {
-			return clanAdapter.buildTeam(request);
+			GenericResponse gR = clanAdapter.buildTeam(request);
+			return gR.getMsg();
 		} catch (Exception e) {
 			System.out.println("Error al crear equipo.");
 		}
@@ -80,7 +81,10 @@ public class ClanServiceImpl implements ClanService {
 
 	@Override
 	public GenericResponse deleteTeam(DeleteTeamRequest request) {
-		String response = clanAdapter.deleteTeam(request);
-		return new GenericResponse("ok");
+		try {
+			return clanAdapter.deleteTeam(request);
+		} catch (Exception e) {
+			return new GenericResponse("error");
+		}
 	}
 }

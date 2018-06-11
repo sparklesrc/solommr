@@ -1,13 +1,29 @@
 package com.solommr.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class SignUp {
 
+    @NotNull
+    @Size(min=5, max=100)
 	private String email;
+    @NotNull
+    @Size(min=6, max=10)
 	private String password;
+    @NotNull
+    @Size(min=6, max=10)
 	private String password2;
+    @NotNull
+    @Size(min=2, max=20)
 	private String nickName;
+    @NotNull
+    @Min(5)
 	private Integer edad;
+    @NotNull
 	private String pais;
+    @NotNull
 	private Integer game;
 
 	public Integer getGame() {
