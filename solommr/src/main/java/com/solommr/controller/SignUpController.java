@@ -15,7 +15,6 @@ import com.solommr.model.GenericResponse;
 import com.solommr.model.SignUp;
 import com.solommr.model.SignUp.BasicRequest;
 import com.solommr.model.SignUp.Pin;
-import com.solommr.model.UserInfo;
 import com.solommr.service.GameService;
 import com.solommr.service.UserService;
 import com.solommr.service.UtilService;
@@ -44,7 +43,7 @@ public class SignUpController extends BaseController {
 	public String postSignup(HttpServletRequest req, @Valid SignUp request, BindingResult bindingResult, Model model) {
 		// Validate if input data is correct
         if (bindingResult.hasErrors()) {
-            return "/signup";
+        	return "redirect:/signup";
         }
 		GenericResponse response = userService.signUp(request);
 		String msg = "user created";
