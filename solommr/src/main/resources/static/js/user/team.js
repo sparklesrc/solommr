@@ -294,7 +294,6 @@ function recruitPlayer(playerId) {
 }
 
 function deleteTeam(){
-	
 	var isLeader = $('#isLeader').val();
 	var teamId = $('#teamId').val();
 	var selected = getGameSelected();
@@ -303,25 +302,38 @@ function deleteTeam(){
 		return;
 	}
 
-	$.ajax({
-		type : "POST",
-		url : "/solommr/user/team/deleteTeam",
-		data : {
-			gameId : selected,
-			isLeader : isLeader,
-			teamId : teamId,
-			userId : null
-		},
-		success : function(data) {
-			if (data.msg === 'ok') {
-				alert('Team Eliminado');
-				window.location.href = "/solommr/user/team";
-			} else {
-				alert('Error');
-			}
-		},
-		error : function(e) {
-			alert('Error al Eliminar Equipo');
-		}
-	});
+    confirmDialog("¿Esta seguro que dese eliminar Team?", function(){
+    	$.ajax({
+    		type : "POST",
+    		url : "/solommr/user/team/deleteTeam",
+    		data : {
+    			gameId : selected,
+    			isLeader : isLeader,
+    			teamId : teamId,
+    			userId : null
+    		},
+    		success : function(data) {
+    			if (data.msg === 'ok') {
+    				alert('Team Eliminado');
+    				window.location.href = "/solommr/user/team";
+    			} else {
+    				alert('Error');
+    			}
+    		},
+    		error : function(e) {
+    			alert('Error al Eliminar Equipo');
+    		}
+    	});
+    });
+}
+
+
+function confirmDialog(message, onConfirm){
+    var fClose = function(){
+        $("#confirmModal").hide();
+    };
+    $("#confirmModal").show();
+    $("#confirmMessage").empty().append(message);
+    $("#confirmOk").unbind().one('click', onConfirm).one('click', fClose);
+    $("#confirmCancel").unbind().one("click", fClose);
 }
