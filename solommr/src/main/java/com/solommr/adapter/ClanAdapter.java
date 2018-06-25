@@ -47,6 +47,9 @@ public class ClanAdapter extends BaseAdapter {
 	@Value("${projectrc.url.team.delete}")
 	private String deleteTeam;
 
+	@Value("${projectrc.url.user.userHasTeamByGameId}")
+	private String userHasTeamByGameId;
+
 	public ClanDataResponse getClanData(Long gameId, String criteria) {
 		String uri = "http://projectrc-pj-solo-mmr.7e14.starter-us-west-2.openshiftapps.com/projectrc/rest/team/search";
 
@@ -146,13 +149,34 @@ public class ClanAdapter extends BaseAdapter {
 
 	public GenericResponse recruitPlayer(RecruitPlayerRequest request) {
 		Map req_payload = new HashMap();
-		req_payload.put("clanId", request.getGameId());
+		req_payload.put("clanId", request.getClanId());
 		req_payload.put("userId", request.getUserId());
 		req_payload.put("description", request.getDescription());
 
 		String response = this.doPostCall(req_payload, recruitPlayer);
 
-		if (response == null || response.contains("Error")) {
+		if (response == null || "error".equals(response)) {
+			return null;
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, GenericResponse.class);
+		} catch (Exception e) {
+			System.out.println("Error al actualizar game Profile para usuario " + request.getUserId());
+			return null;
+		}
+	}
+
+	public GenericResponse userHasTeamByGameId(RecruitPlayerRequest request) {
+		Map req_payload = new HashMap();
+		req_payload.put("clanId", request.getClanId());
+		req_payload.put("userId", request.getUserId());
+		req_payload.put("description", request.getDescription());
+
+		String response = this.doPostCall(req_payload, userHasTeamByGameId);
+
+		if (response == null || "error".equals(response)) {
 			return null;
 		}
 

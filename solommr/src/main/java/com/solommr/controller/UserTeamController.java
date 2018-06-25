@@ -176,7 +176,7 @@ public class UserTeamController extends BaseController{
 	}
 
 	@RequestMapping(value = "/team/recruitPlayer", method = RequestMethod.POST)
-	public GenericResponse recruitPlayer(RecruitPlayerRequest request, HttpServletRequest req, Model model) {
+	public @ResponseBody GenericResponse recruitPlayer(RecruitPlayerRequest request, HttpServletRequest req, Model model) {
 		UserInfo currentUser = this.getCurrentUser(req);
 		if (currentUser == null) {
 			return new GenericResponse("error");
@@ -216,5 +216,13 @@ public class UserTeamController extends BaseController{
 			return gR;
 		}
 		return new GenericResponse("error");
+	}
+
+	@RequestMapping(value = "/team/userHasTeam", method = RequestMethod.POST)
+	public @ResponseBody GenericResponse userHasNoTeam(RecruitPlayerRequest request, HttpServletRequest req) {
+		if (request != null) {
+			return clanService.userHasTeamByGameId(request);
+		}
+		return new GenericResponse(true);
 	}
 }

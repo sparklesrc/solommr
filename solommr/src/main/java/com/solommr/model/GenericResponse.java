@@ -3,13 +3,19 @@ package com.solommr.model;
 public class GenericResponse {
 
 	private String msg;
+	private boolean state;
 
 	public GenericResponse() {
-		
+
 	}
-	
+
 	public GenericResponse(String msg) {
 		this.msg = msg;
+	}
+
+	public GenericResponse(Boolean state) {
+		this.msg = "ok";
+		this.state = state;
 	}
 
 	public String getMsg() {
@@ -18,6 +24,14 @@ public class GenericResponse {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
 	}
 
 	public static class SignUpRequest {

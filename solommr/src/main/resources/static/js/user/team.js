@@ -275,14 +275,70 @@ function recruitPlayer(playerId) {
 
 	$.ajax({
 		type : "POST",
-		url : "/solommr/user/team/recruitPlayer",
+		url : "/solommr/user/team/userHasTeam",
 		data : {
 			userId : playerId,
 			gameId : selected
 		},
 		success : function(data) {
-			if (data.msg === 'ok') {
-				alert('Solicitud Enviada');
+			if(data.msg === 'error'){
+				alert('Error al Reclutar');
+			} else if (data.state === true) {
+				// CONSULTAR SI DESEA ENVIAR DE TODAS MANERAS - SI : PIDE DESCRIPCION
+			    confirmDialog("¿El usuario ya tiene Equipo, desea igual enviar solicitud?", function(){
+			    	//SOLICITAR DESCRIPCION
+			    	description("Solicitud de Reclutamiento", function(){
+			    		var description = $('#comment').val();
+						$.ajax({
+							type : "POST",
+							url : "/solommr/user/team/recruitPlayer",
+							data : {
+								userId : playerId,
+								gameId : selected,
+								description : description
+							},
+							success : function(data) {
+								if (data.msg === 'ok') {
+									alert('Solicitud Enviada');
+								} else if (data.msg === 'full'){
+									alert('El Team esta full');
+								} else {
+									alert('Error al Reclutar');
+								}
+							},
+							error : function(e) {
+								alert('Error al Reclutar');
+							}
+						});
+			    	});
+			    });
+
+			} else if (data.state === false) {
+				// ENVIAR DIRECTO - PIDE DESCRIPCION
+		    	description("Solicitud de Reclutamiento", function(){
+		    		var description = $('#comment').val();
+					$.ajax({
+						type : "POST",
+						url : "/solommr/user/team/recruitPlayer",
+						data : {
+							userId : playerId,
+							gameId : selected,
+							description : description
+						},
+						success : function(data) {
+							if (data.msg === 'ok') {
+								alert('Solicitud Enviada');
+							} else if (data.msg === 'full'){
+								alert('El Team esta full');
+							} else {
+								alert('Error al Reclutar');
+							}
+						},
+						error : function(e) {
+							alert('Error al Reclutar');
+						}
+					});
+		    	});
 			} else {
 				alert('Error al Reclutar');
 			}
@@ -336,4 +392,14 @@ function confirmDialog(message, onConfirm){
     $("#confirmMessage").empty().append(message);
     $("#confirmOk").unbind().one('click', onConfirm).one('click', fClose);
     $("#confirmCancel").unbind().one("click", fClose);
+}
+
+function description(message, onConfirm){
+    var fClose = function(){
+        $("#descriptionModal").hide();
+    };
+    $("#descriptionModal").show();
+    $("#descriptionMessage").empty().append(message);
+    $("#descOk").unbind().one('click', onConfirm).one('click', fClose);
+    $("#descCancel").unbind().one("click", fClose);
 }

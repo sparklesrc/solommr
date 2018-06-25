@@ -87,4 +87,9 @@ public class ClanServiceImpl implements ClanService {
 			return new GenericResponse("error");
 		}
 	}
+
+	@Override
+	public GenericResponse userHasTeamByGameId(RecruitPlayerRequest request) {
+		return clanAdapter.userHasTeamByGameId(request);
+	}
 }

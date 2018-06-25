@@ -188,6 +188,6 @@
 		
 		<input id="teamId" type="hidden" th:value="${teamId}" name="teamId"/>
 		<input id="isLeader" type="hidden" th:value="${isLeader}" name="isLeader"/>
-
-		<!--#include file="../../../fragments/modal_confirm.html" -->
+		<div th:replace="fragments/modal_confirm :: fragmentConfirmModal" />
+		<div th:replace="fragments/modal_description :: fragmentDescriptionModal" />
 </div>

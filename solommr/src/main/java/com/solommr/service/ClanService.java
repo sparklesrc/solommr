@@ -22,4 +22,6 @@ public interface ClanService {
 	GenericResponse recruitPlayer(RecruitPlayerRequest request);
 
 	GenericResponse deleteTeam(DeleteTeamRequest request);
+
+	GenericResponse userHasTeamByGameId(RecruitPlayerRequest request);
 }
