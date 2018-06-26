@@ -1,5 +1,7 @@
 package com.solommr.model;
 
+import java.util.List;
+
 public class GenericResponse {
 
 	private String msg;
@@ -32,6 +34,45 @@ public class GenericResponse {
 
 	public void setState(boolean state) {
 		this.state = state;
+	}
+
+	public static class GenericResponse2<T> {
+		private String msg;
+		private boolean state;
+		private List<T> list;
+
+		public GenericResponse2() {
+		}
+
+		public GenericResponse2(List<T> lista) {
+			this.msg = "ok";
+			this.list = lista;
+		}
+
+		public String getMsg() {
+			return msg;
+		}
+
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+
+		public boolean isState() {
+			return state;
+		}
+
+		public void setState(boolean state) {
+			this.state = state;
+		}
+
+		public List<T> getList() {
+			return list;
+		}
+
+		public void setList(List<T> list) {
+			this.list = list;
+		}
+
 	}
 
 	public static class SignUpRequest {
@@ -129,6 +170,64 @@ public class GenericResponse {
 
 		public void setDescription(String description) {
 			this.description = description;
+		}
+
+	}
+
+	public static class InvitationsToTeamResponse {
+		private Long solicitudeId;
+		private String clanName;
+		private String gameName;
+		private String tipoSolicitud;
+		private String since;
+		private String state;
+
+		public Long getSolicitudeId() {
+			return solicitudeId;
+		}
+
+		public void setSolicitudeId(Long solicitudeId) {
+			this.solicitudeId = solicitudeId;
+		}
+
+		public String getClanName() {
+			return clanName;
+		}
+
+		public void setClanName(String clanName) {
+			this.clanName = clanName;
+		}
+
+		public String getGameName() {
+			return gameName;
+		}
+
+		public void setGameName(String gameName) {
+			this.gameName = gameName;
+		}
+
+		public String getTipoSolicitud() {
+			return tipoSolicitud;
+		}
+
+		public void setTipoSolicitud(String tipoSolicitud) {
+			this.tipoSolicitud = tipoSolicitud;
+		}
+
+		public String getSince() {
+			return since;
+		}
+
+		public void setSince(String since) {
+			this.since = since;
+		}
+
+		public String getState() {
+			return state;
+		}
+
+		public void setState(String state) {
+			this.state = state;
 		}
 
 	}

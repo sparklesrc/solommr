@@ -15,6 +15,7 @@
 			<h1 th:inline="text">Hola
 				[[${#httpServletRequest.remoteUser}]]!</h1>
 
+			
 
 			<form th:action="@{/logout}" method="post">
 				<input type="submit" value="Sign Out" />

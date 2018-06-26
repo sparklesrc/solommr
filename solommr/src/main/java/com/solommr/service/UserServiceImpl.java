@@ -3,8 +3,12 @@ package com.solommr.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.solommr.adapter.SolicitudeAdapter;
 import com.solommr.adapter.UserAdapter;
 import com.solommr.model.GenericResponse;
+import com.solommr.model.GenericResponse.GenericResponse2;
+import com.solommr.model.GenericResponse.InvitationsToTeamResponse;
 import com.solommr.model.GenericResponse.SignUpGameProfile;
 import com.solommr.model.GenericResponse.SignUpRequest;
 import com.solommr.model.SignUp;
@@ -14,6 +18,7 @@ import com.solommr.model.SteamCSGOProfile;
 import com.solommr.model.SteamPlayerSummarie;
 import com.solommr.model.TeamSearchReq.RecruitPlayerRequest;
 import com.solommr.model.UserInfo;
+import com.solommr.model.UserInfo.InvitationsTeamsRequest;
 import com.solommr.model.UserInfo.UserGameProfile;
 
 @Service
@@ -21,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserAdapter userAdapter;
+	@Autowired
+	private SolicitudeAdapter solicitudeAdapter;
 
 	@Override
 	public UserInfo getUserByMail(String mail) {
@@ -87,5 +94,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public GenericResponse updateUserGameProfile(UserGameProfile request) {
 		return userAdapter.updateGameProfile(request);
+	}
+
+	@Override
+	public GenericResponse2<InvitationsToTeamResponse> getInvitationTeams(InvitationsTeamsRequest request) {
+		return solicitudeAdapter.getInvitationTeams(request);
 	}
 }

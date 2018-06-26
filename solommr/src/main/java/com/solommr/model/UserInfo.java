@@ -184,4 +184,35 @@ public class UserInfo {
 
 	}
 
+	public static class InvitationsTeamsRequest {
+		private Long gameId;
+		private Long userId;
+		private Long solicitudeType;
+
+		public Long getGameId() {
+			return gameId;
+		}
+
+		public void setGameId(Long gameId) {
+			this.gameId = gameId;
+		}
+
+		public Long getUserId() {
+			return userId;
+		}
+
+		public void setUserId(Long userId) {
+			this.userId = userId;
+		}
+
+		public Long getSolicitudeType() {
+			return solicitudeType;
+		}
+
+		public void setSolicitudeType(Long solicitudeType) {
+			this.solicitudeType = solicitudeType;
+		}
+
+	}
+
 }
