@@ -170,9 +170,8 @@ public class ClanAdapter extends BaseAdapter {
 
 	public GenericResponse userHasTeamByGameId(RecruitPlayerRequest request) {
 		Map req_payload = new HashMap();
-		req_payload.put("clanId", request.getClanId());
+		req_payload.put("gameId", request.getGameId());
 		req_payload.put("userId", request.getUserId());
-		req_payload.put("description", request.getDescription());
 
 		String response = this.doPostCall(req_payload, userHasTeamByGameId);
 

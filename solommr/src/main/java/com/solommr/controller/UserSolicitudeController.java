@@ -30,7 +30,7 @@ public class UserSolicitudeController extends BaseController {
 		InvitationsTeamsRequest obj = new InvitationsTeamsRequest();
 		obj.setGameId(1L);
 		obj.setSolicitudeType(1L);
-		obj.setUserId(3L);
+		obj.setUserId(2L);
 		GenericResponse2<InvitationsToTeamResponse> lista = userService.getInvitationTeams(obj);
 		System.out.println("Lista " + lista);
 		return "/user/solicitude";

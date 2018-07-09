@@ -5,7 +5,7 @@ import java.util.List;
 public class GenericResponse {
 
 	private String msg;
-	private boolean state;
+	private Boolean state;
 
 	public GenericResponse() {
 

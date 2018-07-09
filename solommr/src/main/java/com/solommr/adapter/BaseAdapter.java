@@ -17,8 +17,8 @@ import org.springframework.web.client.RestTemplate;
 @PropertySource("classpath:default.properties")
 public class BaseAdapter {
 
-//	@Value("${projectrc.url.base}")
-	private String baseUrl = "http://localhost:8080/projectrc/rest";
+	@Value("${projectrc.url.base}")
+	private String baseUrl;
 
 	@Autowired
 	RestTemplate restTemplate;
